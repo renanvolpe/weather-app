@@ -30,11 +30,12 @@ class DioClient implements DioService {
   Future<Result<dynamic, dynamic>> dioGet(
       {required String endpoint, bool withToken = true, Map<String, String>? params, String? token}) async {
     dynamic errorMessage;
+
     try {
       Response response = await _dio.get(
         RequestUtils.pathDio(endpoint),
-        queryParameters: params,
-        options: RequestUtils.headerRequestDio(token),
+        queryParameters: RequestUtils.allParams(params),
+        options: RequestUtils.headerRequestDio(),
       );
       _printLoggSuccess(response);
       return Success(response.data);
@@ -45,11 +46,11 @@ class DioClient implements DioService {
   }
 
   @override
-  Future<Result<dynamic, dynamic>> dioPost({required String endpoint, required Map body, String? token}) async {
+  Future<Result<dynamic, dynamic>> dioPost({required String endpoint, required Map body}) async {
     dynamic errorMessage;
     try {
       Response response = await _dio.post(RequestUtils.pathDio(endpoint),
-          data: json.encode(body), options: RequestUtils.headerRequestDio(token));
+          data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
       return Success(response.data);
     } on DioException catch (e) {
@@ -64,7 +65,7 @@ class DioClient implements DioService {
 
     try {
       Response response = await _dio.delete(RequestUtils.pathDio(endpoint),
-          data: json.encode(body), options: RequestUtils.headerRequestDio(token));
+          data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
       return Success(response.data);
     } on DioException catch (e) {
@@ -79,7 +80,7 @@ class DioClient implements DioService {
 
     try {
       Response response = await _dio.put(RequestUtils.pathDio(endpoint),
-          data: json.encode(body), options: RequestUtils.headerRequestDio(token));
+          data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
       return Success(response.data);
     } on DioException catch (e) {
@@ -94,7 +95,7 @@ class DioClient implements DioService {
 
     try {
       Response response = await _dio.patch(RequestUtils.pathDio(endpoint),
-          data: json.encode(body), options: RequestUtils.headerRequestDio(token));
+          data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
       return Success(response.data);
     } on DioException catch (e) {

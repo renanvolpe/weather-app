@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:weather_app/modules/weather/data/model/weather_model.dart';
+import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
 import '../../../core/utils/constants/failure.dart';
 

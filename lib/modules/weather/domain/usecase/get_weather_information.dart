@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../core/utils/constants/abstract_usecase.dart';
 import '../../../core/utils/constants/failure.dart';
-import '../../data/model/weather_model.dart';
+import '../../data/model/weather_model/weather_model.dart';
 import '../abstract_respository/abstract_get_weather_repository.dart';
 
 class GetWeatherInformation extends IUseCase<String, WeatherModel> {
