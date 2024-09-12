@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:result_dart/result_dart.dart';
-import 'package:weather_app/modules/dio/request_utils.dart';
+import 'package:weather_app/modules/shared/dio/request_utils.dart';
 
-import '../core/utils/logger.dart';
+import '../../core/utils/logger.dart';
 
 abstract class DioService {
   Future dioGet({required String endpoint, bool withToken = true, Map<String, String>? params});

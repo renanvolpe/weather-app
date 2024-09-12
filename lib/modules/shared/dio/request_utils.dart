@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 
-import '../core/utils/constants/endpoint.dart';
+import '../../core/utils/constants/endpoint.dart';
 
 class RequestUtils {
   static String pathDio(String endpoint) => FlavorConfig.instance.variables["baseUrl"] + Endpoint.apiV1 + endpoint;
