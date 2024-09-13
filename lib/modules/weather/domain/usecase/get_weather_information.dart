@@ -6,19 +6,18 @@ import '../../../core/utils/constants/failure.dart';
 import '../../data/model/weather_model/weather_model.dart';
 import '../abstract_respository/abstract_get_weather_repository.dart';
 
-class GetWeatherInformation extends IUseCase<String, WeatherModel> {
+class GetWeatherInformationUseCase extends IUseCase<String, WeatherModel> {
   IGetWeatherRepository repository;
-  GetWeatherInformation({
+  GetWeatherInformationUseCase({
     required this.repository,
   });
   @override
-  Future<Either<Failure, WeatherModel>> call(params) async {
+  Future<Either<Failure, WeatherModel>> call(String params) async {
     var response = await repository.getWeatherInformation(params);
-    response.fold((failure) {
+    return response.fold((failure) {
       return Left(failure);
     }, (success) {
-      Right(success);
+      return Right(success);
     });
-    return const Left(ServerFailure());
   }
 }

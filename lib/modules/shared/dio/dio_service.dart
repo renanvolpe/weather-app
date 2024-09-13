@@ -1,17 +1,17 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:result_dart/result_dart.dart';
 import 'package:weather_app/modules/shared/dio/request_utils.dart';
 
 import '../../core/utils/logger.dart';
 
 abstract class DioService {
-  Future dioGet({required String endpoint, bool withToken = true, Map<String, String>? params});
-  dioPost({required String endpoint, required Map body});
-  dioPut({required String endpoint, required Map body, String? token});
-  dioDelete({required String endpoint, required Map body});
-  dioPatch({required String endpoint, required Map body, String? token});
+  Future<Either<dynamic, dynamic>>  dioGet({required String endpoint, bool withToken = true, Map<String, String>? params});
+  Future<Either<dynamic, dynamic>>  dioPost({required String endpoint, required Map body});
+  Future<Either<dynamic, dynamic>>  dioPut({required String endpoint, required Map body, String? token});
+  Future<Either<dynamic, dynamic>> dioDelete({required String endpoint, required Map body});
+  Future<Either<dynamic, dynamic>> dioPatch({required String endpoint, required Map body, String? token});
 }
 
 class DioClient implements DioService {
@@ -27,7 +27,7 @@ class DioClient implements DioService {
       Logg.consoleShow("ENDPOINT :: ${response.requestOptions.path} \nVERB :: ${response.requestOptions.method}");
 
   @override
-  Future<Result<dynamic, dynamic>> dioGet(
+  Future<Either<dynamic, dynamic>> dioGet(
       {required String endpoint, bool withToken = true, Map<String, String>? params, String? token}) async {
     dynamic errorMessage;
 
@@ -38,70 +38,70 @@ class DioClient implements DioService {
         options: RequestUtils.headerRequestDio(),
       );
       _printLoggSuccess(response);
-      return Success(response.data);
+      return Right(response.data);
     } on DioException catch (e) {
       errorMessage = ErrorTretment.getError(e);
     }
-    return Failure(errorMessage);
+    return Left(errorMessage);
   }
 
   @override
-  Future<Result<dynamic, dynamic>> dioPost({required String endpoint, required Map body}) async {
+  Future<Either<dynamic, dynamic>> dioPost({required String endpoint, required Map body}) async {
     dynamic errorMessage;
     try {
       Response response = await _dio.post(RequestUtils.pathDio(endpoint),
           data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
-      return Success(response.data);
+      return Right(response.data);
     } on DioException catch (e) {
       errorMessage = ErrorTretment.getError(e);
     }
-    return Failure(errorMessage);
+    return Left(errorMessage);
   }
 
   @override
-  Future<Result<dynamic, dynamic>> dioDelete({required String endpoint, Map? body, String? token}) async {
+  Future<Either<dynamic, dynamic>> dioDelete({required String endpoint, Map? body, String? token}) async {
     dynamic errorMessage;
 
     try {
       Response response = await _dio.delete(RequestUtils.pathDio(endpoint),
           data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
-      return Success(response.data);
+      return Right(response.data);
     } on DioException catch (e) {
       errorMessage = ErrorTretment.getError(e);
     }
-    return Failure(errorMessage);
+    return Left(errorMessage);
   }
 
   @override
-  Future<Result<dynamic, dynamic>> dioPut({required String endpoint, required Map body, String? token}) async {
+  Future<Either<dynamic, dynamic>> dioPut({required String endpoint, required Map body, String? token}) async {
     dynamic errorMessage;
 
     try {
       Response response = await _dio.put(RequestUtils.pathDio(endpoint),
           data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
-      return Success(response.data);
+      return Right(response.data);
     } on DioException catch (e) {
       errorMessage = ErrorTretment.getError(e);
     }
-    return Failure(errorMessage);
+    return Left(errorMessage);
   }
 
   @override
-  Future<Result<dynamic, dynamic>> dioPatch({required String endpoint, required Map body, String? token}) async {
+  Future<Either<dynamic, dynamic>> dioPatch({required String endpoint, required Map body, String? token}) async {
     dynamic errorMessage;
 
     try {
       Response response = await _dio.patch(RequestUtils.pathDio(endpoint),
           data: json.encode(body), options: RequestUtils.headerRequestDio());
       _printLoggSuccess(response);
-      return Success(response.data);
+      return Right(response.data);
     } on DioException catch (e) {
       errorMessage = ErrorTretment.getError(e);
     }
-    return Failure(errorMessage);
+    return Left(errorMessage);
   }
 }
 

@@ -7,10 +7,11 @@ import '../../../core/utils/constants/endpoint.dart';
 import '../../../core/utils/constants/failure.dart';
 
 class WeatherDatasourceImpl implements IWeatherDatasource {
-  //localInstance
-  final DioClient dioClient;
+  DioService dioClient;
 
-  WeatherDatasourceImpl(this.dioClient);
+  WeatherDatasourceImpl({
+    required this.dioClient,
+  });
 
   @override
   Future<Either<Failure, WeatherModel>> getWatherLocal(String text) async {
@@ -21,11 +22,12 @@ class WeatherDatasourceImpl implements IWeatherDatasource {
   Future<Either<Failure, WeatherModel>> getWeatherApi(String text) async {
     Map<String, String>? params = {"q": text};
     var response = await dioClient.dioGet(endpoint: Endpoint.current, params: params);
-    return response.fold((success) {
-     var weatherModel = WeatherModel.fromMap(success);
-      return Right(weatherModel);
-    }, (failure) {
+
+    return response.fold((failure) {
       return Left(failure);
+    }, (success) {
+      var weatherModel = WeatherModel.fromMap(success);
+      return Right(weatherModel);
     });
   }
 }

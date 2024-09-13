@@ -8,6 +8,7 @@ import '../abstract_datasource/abstract_weather_datasource.dart';
 
 class GetWeatherRepositoryImpl implements IGetWeatherRepository {
   IWeatherDatasource datasource;
+
   GetWeatherRepositoryImpl({
     required this.datasource,
   });
