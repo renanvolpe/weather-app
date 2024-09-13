@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../state/bloc/get_weather_information_bloc.dart';
+import '../state/bloc/get_weather_information/get_weather_information_bloc.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -47,8 +47,15 @@ class _WeatherPageState extends State<WeatherPage> {
                 (GetWeatherInformationFailure()) => Text("Error: ${state.message}"),
                 (GetWeatherInformationProgress()) => const CircularProgressIndicator(),
                 (GetWeatherInformationInitial()) => const Text("Tap a city to discover the Weather"),
-                (GetWeatherInformationSuccess()) =>
-                  Text("success: ${state.weatherModel.location.name}, Weather: ${state.weatherModel.current.temp_c}")
+                (GetWeatherInformationSuccess()) => Column(
+                    children: [
+                      Text(
+                          "success: ${state.weatherModel.location.name}, Weather: ${state.weatherModel.current.temp_c}"),
+                      TextButton(
+                          onPressed: () => Modular.to.pushNamed("./forecast"),
+                          child: const Text("Get Forecast Weather"))
+                    ],
+                  )
               };
             },
           )

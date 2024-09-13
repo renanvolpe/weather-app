@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
-import '../../../domain/usecase/get_weather_information.dart';
+import '../../../../domain/usecase/get_weather_information_usecase.dart';
 
 part 'get_weather_information_event.dart';
 part 'get_weather_information_state.dart';

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'condition_model.dart';
+import '../condition_model.dart';
 
 class CurrentModel {
   double temp_c;
