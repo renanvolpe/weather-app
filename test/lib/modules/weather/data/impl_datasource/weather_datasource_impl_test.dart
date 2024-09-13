@@ -11,7 +11,7 @@ void main() {
   late IWeatherDatasource datasource;
   setUpAll(() async{
     await dotenv.load(fileName: '.env');
-    datasource = WeatherDatasourceImpl(DioClient(Dio()));
+    datasource = WeatherDatasourceImpl( dioClient:DioClient(Dio()));
   });
   group("Test get weather", () {
     test("Test get weather from api", () async {
