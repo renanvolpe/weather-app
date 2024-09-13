@@ -52,7 +52,7 @@ class _WeatherPageState extends State<WeatherPage> {
                       Text(
                           "success: ${state.weatherModel.location.name}, Weather: ${state.weatherModel.current.temp_c}"),
                       TextButton(
-                          onPressed: () => Modular.to.pushNamed("./forecast"),
+                          onPressed: () => Modular.to.pushNamed("./forecast", arguments: weatherTextController.text),
                           child: const Text("Get Forecast Weather"))
                     ],
                   )

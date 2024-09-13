@@ -6,10 +6,10 @@ import '../../domain/usecase/get_forecast_7days_usecase.dart';
 import '../abstract_datasource/abstract_forecast_datasource.dart';
 import '../model/forecastday/forecastday_model.dart';
 
-class GetWeatherRepositoryImpl implements IGetForecastRepository {
+class GetForecastRepositoryImpl implements IGetForecastRepository {
   IForecastDatasource datasource;
 
-  GetWeatherRepositoryImpl({
+  GetForecastRepositoryImpl({
     required this.datasource,
   });
 

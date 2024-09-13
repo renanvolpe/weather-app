@@ -2,10 +2,10 @@
 
 # Tasks
 ## City Search Functionality:
-- Users should be able to search for a city.
-- Display current weather data (temperature, humidity, wind speed, etc.) for the searched city.
+- Users should be able to search for a city. (check)
+- Display current weather data (temperature, humidity, wind speed, etc.) for the searched city. (check)
 ## Weather Forecast:
-- Show a 7-day weather forecast for the selected city, including temperature highs and lows, and general weather conditions.
+- Show a 7-day weather forecast for the selected city, including temperature highs and lows, and general weather conditions. (check)
 ## Favorite Cities:
 - Users should be able to mark cities as "Favorites" and view them in a dedicated screen.
 - Persist the list of favorite cities locally.

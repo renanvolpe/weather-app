@@ -6,3 +6,9 @@ sealed class GetForecast7DaysEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetForecast7Days extends GetForecast7DaysEvent {
+  final ForecastParam param;
+
+  const GetForecast7Days(this.param);
+}

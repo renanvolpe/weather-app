@@ -1,15 +1,20 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:weather_app/modules/weather/data/abstract_datasource/abstract_forecast_datasource.dart';
+import 'package:weather_app/modules/weather/domain/usecase/get_forecast_7days_usecase.dart';
 
-import '../shared/dio/dio_service.dart';
+import '../shared/shared_module.dart';
 import 'data/abstract_datasource/abstract_weather_datasource.dart';
+import 'data/impl_datasource/forecast_datasource_impl.dart';
 import 'data/impl_datasource/weather_datasource_impl.dart';
+import 'data/impl_repository/get_forecast_repository_impl.dart';
 import 'data/impl_repository/get_weather_repository_impl.dart';
+import 'domain/abstract_respository/abstract_get_forecast_repository.dart';
 import 'domain/abstract_respository/abstract_get_weather_repository.dart';
 import 'domain/usecase/get_weather_information_usecase.dart';
 import 'presenter/screen/forecast_page.dart';
 import 'presenter/screen/weather_page.dart';
 import 'presenter/screen/welcome_page.dart';
+import 'presenter/state/bloc/get_forecast_7days/get_forecast7_days_bloc.dart';
 import 'presenter/state/bloc/get_weather_information/get_weather_information_bloc.dart';
 
 class WeatherModule extends Module {
@@ -17,21 +22,27 @@ class WeatherModule extends Module {
   void routes(RouteManager r) {
     r.child('/', child: (_) => const WelcomePage());
     r.child('/weather', child: (_) => const WeatherPage());
-    r.child('/forecast', child: (_) => const ForecastPage());
+    r.child('/forecast', child: (_) => ForecastPage(text: r.args.data as String));
     super.routes(r);
   }
 
   @override
   void binds(Injector i) {
-    i.add(() => Dio());
-    i.addSingleton<DioService>(DioClient.new);
+    //Weather I.D.
     i.addSingleton<IWeatherDatasource>(WeatherDatasourceImpl.new);
     i.addSingleton<IGetWeatherRepository>(GetWeatherRepositoryImpl.new);
     i.addSingleton(GetWeatherInformationUseCase.new);
     i.addSingleton(GetWeatherInformationBloc.new);
+    
+    //Forecast I.D.
+    i.addSingleton<IForecastDatasource>(ForecastDatasourceImpl.new);
+    i.addSingleton<IGetForecastRepository>(GetForecastRepositoryImpl.new);
+    i.addSingleton(GetForecast7daysUsecase.new);
+    i.addSingleton(GetForecast7DaysBloc.new);
+
     super.binds(i);
   }
 
-  // @override
-  // List<Module> get imports => [SharedModule()];
+  @override
+  List<Module> get imports => [SharedModule()];
 }
