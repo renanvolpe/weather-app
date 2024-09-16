@@ -33,3 +33,4 @@
 - Dio
 - Flutter Modular
 - DartZ
+- SQLite
