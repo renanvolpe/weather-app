@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gap/gap.dart';
+import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
 import '../state/bloc/get_weather_information/get_weather_information_bloc.dart';
 
@@ -28,6 +30,7 @@ class _WeatherPageState extends State<WeatherPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather here"),
+        actions: const [Icon(Icons.saved_search), Gap(15)],
       ),
       body: Column(
         children: [
@@ -49,6 +52,7 @@ class _WeatherPageState extends State<WeatherPage> {
                 (GetWeatherInformationInitial()) => const Text("Tap a city to discover the Weather"),
                 (GetWeatherInformationSuccess()) => Column(
                     children: [
+                      FavoriteIcon(weatherModel: state.weatherModel),
                       Text(
                           "success: ${state.weatherModel.location.name}, Weather: ${state.weatherModel.current.temp_c}"),
                       TextButton(
@@ -61,6 +65,36 @@ class _WeatherPageState extends State<WeatherPage> {
           )
         ],
       ),
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class FavoriteIcon extends StatelessWidget {
+  FavoriteIcon({
+    super.key,
+    required this.weatherModel,
+  });
+
+  final WeatherModel weatherModel;
+
+  bool isFavorite = false;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        StatefulBuilder(builder: (context, setState) {
+          return IconButton(
+              onPressed: () {
+                //TODO save here in localfile
+                setState(() => isFavorite = !isFavorite);
+              },
+              icon: isFavorite
+                  ? const Icon(Icons.favorite, color: Colors.red)
+                  : const Icon(Icons.favorite_border, color: Colors.black));
+        })
+      ],
     );
   }
 }

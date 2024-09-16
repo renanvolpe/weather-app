@@ -18,4 +18,7 @@ class GetWeatherRepositoryImpl implements IGetWeatherRepository {
     var response = await datasource.getWeatherApi(text);
     return response.fold((failure) => Left(failure), (success) => Right(success));
   }
+  
+
+  
 }

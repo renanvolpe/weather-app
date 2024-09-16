@@ -14,11 +14,6 @@ class WeatherDatasourceImpl implements IWeatherDatasource {
   });
 
   @override
-  Future<Either<Failure, WeatherModel>> getWatherLocal(String text) async {
-    return const Left(ServerFailure());
-  }
-
-  @override
   Future<Either<Failure, WeatherModel>> getWeatherApi(String text) async {
     Map<String, String>? params = {"q": text};
     var response = await dioClient.dioGet(endpoint: Endpoint.current, params: params);
@@ -29,5 +24,15 @@ class WeatherDatasourceImpl implements IWeatherDatasource {
       var weatherModel = WeatherModel.fromMap(success);
       return Right(weatherModel);
     });
+  }
+  
+  @override
+  Future<Either<Failure, List<WeatherModel>>> getListWeatherApi() {
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, int>> saveWeatherApi(weather) {
+    throw UnimplementedError();
   }
 }

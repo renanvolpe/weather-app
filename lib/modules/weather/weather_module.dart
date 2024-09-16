@@ -6,6 +6,7 @@ import '../shared/shared_module.dart';
 import 'data/abstract_datasource/abstract_weather_datasource.dart';
 import 'data/impl_datasource/forecast_datasource_impl.dart';
 import 'data/impl_datasource/weather_datasource_impl.dart';
+import 'data/impl_datasource/weather_datasource_local_impl.dart';
 import 'data/impl_repository/get_forecast_repository_impl.dart';
 import 'data/impl_repository/get_weather_repository_impl.dart';
 import 'domain/abstract_respository/abstract_get_forecast_repository.dart';
@@ -29,11 +30,12 @@ class WeatherModule extends Module {
   @override
   void binds(Injector i) {
     //Weather I.D.
+    i.addSingleton<IWeatherDatasource>(WeatherDatasourceLocalImpl.new);
     i.addSingleton<IWeatherDatasource>(WeatherDatasourceImpl.new);
     i.addSingleton<IGetWeatherRepository>(GetWeatherRepositoryImpl.new);
     i.addSingleton(GetWeatherInformationUseCase.new);
     i.addSingleton(GetWeatherInformationBloc.new);
-    
+
     //Forecast I.D.
     i.addSingleton<IForecastDatasource>(ForecastDatasourceImpl.new);
     i.addSingleton<IGetForecastRepository>(GetForecastRepositoryImpl.new);

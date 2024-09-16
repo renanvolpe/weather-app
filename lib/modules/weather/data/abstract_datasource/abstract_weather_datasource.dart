@@ -5,5 +5,6 @@ import '../../../core/utils/constants/failure.dart';
 
 abstract class IWeatherDatasource {
   Future<Either<Failure, WeatherModel>> getWeatherApi(String text);
-  Future<Either<Failure, WeatherModel>> getWatherLocal(String text);
+  Future<Either<Failure, List<WeatherModel>>> getListWeatherApi();
+  Future<Either<Failure, int>> saveWeatherApi(WeatherModel model);
 }
