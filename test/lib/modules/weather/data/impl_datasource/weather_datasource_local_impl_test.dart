@@ -15,10 +15,10 @@ void sqfliteTestInit() {
 
 void main() {
   sqfliteTestInit();
-  late IWeatherDatasource datasource;
+  late IWeatherDatasourceLocal datasource;
   setUpAll(() async {
     var config = SqliteConfig();
-    await config.initDatabase(true);
+    await config.initDatabase();
 
     datasource = WeatherDatasourceLocalImpl(database: config.database);
   });
@@ -26,23 +26,23 @@ void main() {
   tearDownAll(() {});
 
   group("Test get weather", () {
-    test("Test get weather from api", () async {
+    test("Test save weather in local from data from api", () async {
       var newWeather = WeatherModel.fromMap(sjcMock);
-      var response = await datasource.saveWeatherApi(newWeather);
+      var response = await datasource.saveWeather(newWeather);
       expect(response, isA<Right>());
       response.fold((failure) {}, (success) {
         expect(success, isA<int>());
       });
     });
-    test("Test get list weather from api", () async {
-      var response = await datasource.getListWeatherApi();
+    test("Test get list weather from local saved", () async {
+      var response = await datasource.getListWeather();
       expect(response, isA<Right>());
       response.fold((failure) {}, (success) {
         expect(success, isA<List<WeatherModel>?>());
       });
     });
-    test("Test get weather from api", () async {
-      var response = await datasource.getWeatherApi("Sao jose dos campos");
+    test("Test get weather from local", () async {
+      var response = await datasource.getWeather(1);
       expect(response, isA<Right>());
       response.fold((failure) {}, (success) {
         expect(success, isA<WeatherModel>());

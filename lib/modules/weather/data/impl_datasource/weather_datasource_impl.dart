@@ -6,7 +6,7 @@ import 'package:weather_app/modules/weather/data/model/weather_model/weather_mod
 import '../../../core/utils/constants/endpoint.dart';
 import '../../../core/utils/constants/failure.dart';
 
-class WeatherDatasourceImpl implements IWeatherDatasource {
+class WeatherDatasourceImpl implements IWeatherDatasourceApi {
   DioService dioClient;
 
   WeatherDatasourceImpl({

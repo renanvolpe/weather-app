@@ -3,8 +3,15 @@ import 'package:weather_app/modules/weather/data/model/weather_model/weather_mod
 
 import '../../../core/utils/constants/failure.dart';
 
-abstract class IWeatherDatasource {
+abstract class IWeatherDatasourceApi {
   Future<Either<Failure, WeatherModel>> getWeatherApi(String text);
   Future<Either<Failure, List<WeatherModel>>> getListWeatherApi();
   Future<Either<Failure, int>> saveWeatherApi(WeatherModel model);
 }
+
+abstract class IWeatherDatasourceLocal {
+  Future<Either<Failure, WeatherModel>> getWeather(int id);
+  Future<Either<Failure, List<WeatherModel>>> getListWeather();
+  Future<Either<Failure, int>> saveWeather(WeatherModel model);
+}
+

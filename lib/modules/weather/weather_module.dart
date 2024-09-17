@@ -30,8 +30,8 @@ class WeatherModule extends Module {
   @override
   void binds(Injector i) {
     //Weather I.D.
-    i.addSingleton<IWeatherDatasource>(WeatherDatasourceLocalImpl.new);
-    i.addSingleton<IWeatherDatasource>(WeatherDatasourceImpl.new);
+    i.addSingleton<IWeatherDatasourceLocal>(WeatherDatasourceLocalImpl.new);
+    i.addSingleton<IWeatherDatasourceApi>(WeatherDatasourceImpl.new);
     i.addSingleton<IGetWeatherRepository>(GetWeatherRepositoryImpl.new);
     i.addSingleton(GetWeatherInformationUseCase.new);
     i.addSingleton(GetWeatherInformationBloc.new);

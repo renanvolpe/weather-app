@@ -45,4 +45,5 @@ const currentMock = {
   }
 };
 
+
 const sjcMock = {...locationMock, ...currentMock};

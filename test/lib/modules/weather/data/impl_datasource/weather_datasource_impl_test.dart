@@ -8,7 +8,7 @@ import 'package:weather_app/modules/weather/data/impl_datasource/weather_datasou
 import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
 void main() {
-  late IWeatherDatasource datasource;
+  late IWeatherDatasourceApi datasource;
   setUpAll(() async{
     await dotenv.load(fileName: '.env');
     datasource = WeatherDatasourceImpl( dioClient:DioClient(Dio()));
