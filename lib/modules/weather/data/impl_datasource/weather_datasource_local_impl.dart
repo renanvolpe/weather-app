@@ -6,31 +6,33 @@ import 'package:weather_app/modules/weather/data/model/condition_model.dart';
 import 'package:weather_app/modules/weather/data/model/weather_model/current_model.dart';
 
 import '../../../shared/sqlite/fields.dart';
+import '../../../shared/sqlite/sqlite_config.dart';
 import '../../../shared/sqlite/tables.dart';
 import '../abstract_datasource/abstract_weather_datasource.dart';
 import '../model/weather_model/location_model.dart';
 import '../model/weather_model/weather_model.dart';
 
 class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
-  Database database;
+  SqliteConfig sqliteConfig;
+  late Database _database;
 
-  WeatherDatasourceLocalImpl({
-    required this.database,
-  });
+  WeatherDatasourceLocalImpl({required this.sqliteConfig}) {
+    _database = sqliteConfig.database;
+  }
 
   @override
   Future<Either<Failure, WeatherModel>> getWeather(int idWeather) async {
     try {
-      var response = await database.query(Tables.weatherTable, where: 'id = ?', whereArgs: [idWeather]);
+      var response = await _database.query(Tables.weatherTable, where: 'id = ?', whereArgs: [idWeather]);
 
       int currentId = response.first["current_id"] as int;
       int locationId = response.first["location_id"] as int;
 
-      var currentResponse = await database.query(Tables.currentTable, where: 'id = ?', whereArgs: [currentId]);
+      var currentResponse = await _database.query(Tables.currentTable, where: 'id = ?', whereArgs: [currentId]);
 
       int conditionId = currentResponse.first["condition_id"] as int;
 
-      var conditionResponse = await database.query(Tables.conditionTable, where: 'id = ?', whereArgs: [conditionId]);
+      var conditionResponse = await _database.query(Tables.conditionTable, where: 'id = ?', whereArgs: [conditionId]);
 
       var newCondition = ConditionModel.fromMap(conditionResponse.first);
 
@@ -42,7 +44,7 @@ class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
 
       var newCurrent = CurrentModel.fromMap(updatedCurrent);
 
-      var locationResponse = await database.query(Tables.locationTable, where: 'id = ?', whereArgs: [locationId]);
+      var locationResponse = await _database.query(Tables.locationTable, where: 'id = ?', whereArgs: [locationId]);
 
       var newLocation = LocationModel.fromMap(locationResponse.first);
 
@@ -57,7 +59,7 @@ class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
   @override
   Future<Either<Failure, List<WeatherModel>>> getListWeather() async {
     try {
-      var response = await database.query(Tables.weatherTable);
+      var response = await _database.query(Tables.weatherTable);
 
       List<WeatherModel> newList = [];
       for (var e in response) {
@@ -65,11 +67,11 @@ class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
         int locationId = e["location_id"] as int;
         int weatherId = e["id"] as int;
 
-        var currentResponse = await database.query(Tables.currentTable, where: 'id = ?', whereArgs: [currentId]);
+        var currentResponse = await _database.query(Tables.currentTable, where: 'id = ?', whereArgs: [currentId]);
 
         int conditionId = currentResponse.first["condition_id"] as int;
 
-        var conditionResponse = await database.query(Tables.conditionTable, where: 'id = ?', whereArgs: [conditionId]);
+        var conditionResponse = await _database.query(Tables.conditionTable, where: 'id = ?', whereArgs: [conditionId]);
 
         var newCondition = ConditionModel.fromMap(conditionResponse.first);
 
@@ -81,7 +83,7 @@ class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
 
         var newCurrent = CurrentModel.fromMap(updatedCurrent);
 
-        var locationResponse = await database.query(Tables.locationTable, where: 'id = ?', whereArgs: [locationId]);
+        var locationResponse = await _database.query(Tables.locationTable, where: 'id = ?', whereArgs: [locationId]);
 
         var newLocation = LocationModel.fromMap(locationResponse.first);
 
@@ -104,23 +106,23 @@ class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
       final conditionData = currentData['condition'];
 
       // Insert into Location table
-      final locationId = await database.insert(Tables.locationTable, locationData.cast<String, dynamic>(),
+      final locationId = await _database.insert(Tables.locationTable, locationData.cast<String, dynamic>(),
           conflictAlgorithm: ConflictAlgorithm.replace);
 
-      var idCondition = await database.insert(Tables.conditionTable, conditionData.cast<String, dynamic>(),
+      var idCondition = await _database.insert(Tables.conditionTable, conditionData.cast<String, dynamic>(),
           conflictAlgorithm: ConflictAlgorithm.replace);
 
       currentData.remove('condition');
       currentData['condition_id'] = idCondition;
 
       // Insert into Current table
-      final currentId = await database.insert(Tables.currentTable, currentData.cast<String, dynamic>(),
+      final currentId = await _database.insert(Tables.currentTable, currentData.cast<String, dynamic>(),
           conflictAlgorithm: ConflictAlgorithm.replace);
 
-      await database.insert(Tables.conditionTable, conditionData.cast<String, dynamic>(),
+      await _database.insert(Tables.conditionTable, conditionData.cast<String, dynamic>(),
           conflictAlgorithm: ConflictAlgorithm.replace);
 
-      int idWeather = await database.insert(
+      int idWeather = await _database.insert(
           Tables.weatherTable,
           {
             WeatherFields.location_id: locationId,
@@ -128,6 +130,28 @@ class WeatherDatasourceLocalImpl implements IWeatherDatasourceLocal {
           },
           conflictAlgorithm: ConflictAlgorithm.replace);
       return Right(idWeather);
+    } catch (e) {
+      return Left(UnexpectedFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> deleteWeather(int idWeather) async {
+    try {
+      var responseWeather = await _database.query(Tables.weatherTable, where: 'id = ?', whereArgs: [idWeather]);
+
+      int currentId = responseWeather.first["current_id"] as int;
+      int locationId = responseWeather.first["location_id"] as int;
+
+      var responseCurrent = await _database.query(Tables.currentTable, where: 'id = ?', whereArgs: [currentId]);
+
+      int conditionId = responseCurrent.first["condition_id"] as int;
+
+      int id = await _database.delete(Tables.weatherTable, where: "id = ?", whereArgs: [idWeather]);
+      await _database.delete(Tables.locationTable, where: "id = ?", whereArgs: [locationId]);
+      await _database.delete(Tables.currentTable, where: "id = ?", whereArgs: [currentId]);
+      await _database.delete(Tables.conditionTable, where: "id = ?", whereArgs: [conditionId]);
+      return Right(id);
     } catch (e) {
       return Left(UnexpectedFailure(e.toString()));
     }

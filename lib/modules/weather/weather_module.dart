@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:weather_app/modules/weather/data/abstract_datasource/abstract_forecast_datasource.dart';
 import 'package:weather_app/modules/weather/domain/usecase/get_forecast_7days_usecase.dart';
+import 'package:weather_app/modules/weather/presenter/state/bloc/post_weather_local/post_weather_local_bloc.dart';
 
 import '../shared/shared_module.dart';
 import 'data/abstract_datasource/abstract_weather_datasource.dart';
@@ -14,6 +15,7 @@ import 'domain/abstract_respository/abstract_get_weather_repository.dart';
 import 'domain/usecase/get_list_weather_local_usecase.dart';
 import 'domain/usecase/get_weather_local_usecase.dart';
 import 'domain/usecase/get_weather_usecase.dart';
+import 'domain/usecase/post_weather_local_usecase.dart';
 import 'presenter/screen/forecast_page.dart';
 import 'presenter/screen/weather_page.dart';
 import 'presenter/screen/welcome_page.dart';
@@ -34,7 +36,7 @@ class WeatherModule extends Module {
   @override
   void binds(Injector i) {
     //Weather
-    i.addSingleton<IGetWeatherRepository>(GetWeatherRepositoryImpl.new);
+    i.addSingleton<IWeatherRepository>(GetWeatherRepositoryImpl.new);
 
     //Weather - Api
     i.addSingleton<IWeatherDatasourceApi>(WeatherDatasourceImpl.new);
@@ -46,6 +48,9 @@ class WeatherModule extends Module {
 
     i.addSingleton(GetWeatherLocalUseCase.new);
     i.addSingleton(GetWeatherLocalBloc.new);
+
+    i.addSingleton(PostWeatherLocalUseCase.new);
+    i.addSingleton(PostWeatherLocalBloc.new);
 
     i.addSingleton(GetListWeatherLocalUseCase.new);
     i.addSingleton(GetListWeatherLocalBloc.new);

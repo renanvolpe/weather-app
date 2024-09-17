@@ -6,7 +6,7 @@ import 'package:weather_app/modules/weather/domain/abstract_respository/abstract
 
 import '../abstract_datasource/abstract_weather_datasource.dart';
 
-class GetWeatherRepositoryImpl implements IGetWeatherRepository {
+class GetWeatherRepositoryImpl implements IWeatherRepository {
   IWeatherDatasourceApi datasource;
   IWeatherDatasourceLocal datasourceLocal;
 
@@ -30,6 +30,18 @@ class GetWeatherRepositoryImpl implements IGetWeatherRepository {
   @override
   Future<Either<Failure, List<WeatherModel>>> getListWeatherLocal() async {
     var response = await datasourceLocal.getListWeather();
+    return response.fold((failure) => Left(failure), (success) => Right(success));
+  }
+  
+  @override
+  Future<Either<Failure, int>> postWeatherLocal(WeatherModel weather) async{
+        var response = await datasourceLocal.saveWeather(weather);
+    return response.fold((failure) => Left(failure), (success) => Right(success));
+  }
+  
+  @override
+  Future<Either<Failure, int>> deletetWeatherLocal(int id) async{
+        var response = await datasourceLocal.deleteWeather(id);
     return response.fold((failure) => Left(failure), (success) => Right(success));
   }
 }

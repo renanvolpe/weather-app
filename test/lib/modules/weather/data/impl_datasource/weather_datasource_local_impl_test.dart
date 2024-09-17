@@ -20,17 +20,19 @@ void main() {
     var config = SqliteConfig();
     await config.initDatabase();
 
-    datasource = WeatherDatasourceLocalImpl(database: config.database);
+    datasource = WeatherDatasourceLocalImpl(sqliteConfig: config);
   });
 
   tearDownAll(() {});
 
   group("Test get weather", () {
+    late int idWeather;
     test("Test save weather in local from data from api", () async {
       var newWeather = WeatherModel.fromMap(sjcMock);
       var response = await datasource.saveWeather(newWeather);
       expect(response, isA<Right>());
       response.fold((failure) {}, (success) {
+        idWeather = success;
         expect(success, isA<int>());
       });
     });
@@ -42,10 +44,18 @@ void main() {
       });
     });
     test("Test get weather from local", () async {
-      var response = await datasource.getWeather(1);
+      var response = await datasource.getWeather(idWeather);
       expect(response, isA<Right>());
       response.fold((failure) {}, (success) {
         expect(success, isA<WeatherModel>());
+      });
+    });
+
+    test("Test delete weather from local", () async {
+      var response = await datasource.deleteWeather(idWeather);
+      expect(response, isA<Right>());
+      response.fold((failure) {}, (success) {
+        expect(success, isA<int>());
       });
     });
   });

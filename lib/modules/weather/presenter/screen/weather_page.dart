@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
 import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
+import 'package:weather_app/modules/weather/presenter/state/bloc/post_weather_local/post_weather_local_bloc.dart';
 
 import '../state/bloc/get_weather/get_weather_information_bloc.dart';
 
@@ -81,13 +82,14 @@ class FavoriteIcon extends StatelessWidget {
   bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
+    PostWeatherLocalBloc postWeatherLocalBloc = Modular.get<PostWeatherLocalBloc>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         StatefulBuilder(builder: (context, setState) {
           return IconButton(
               onPressed: () {
-                //TODO save here in localfile
+                postWeatherLocalBloc.add(PostWeatherLocalStarted(weatherModel));
                 setState(() => isFavorite = !isFavorite);
               },
               icon: isFavorite

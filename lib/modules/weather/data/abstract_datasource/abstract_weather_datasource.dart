@@ -13,5 +13,5 @@ abstract class IWeatherDatasourceLocal {
   Future<Either<Failure, WeatherModel>> getWeather(int id);
   Future<Either<Failure, List<WeatherModel>>> getListWeather();
   Future<Either<Failure, int>> saveWeather(WeatherModel model);
+  Future<Either<Failure, int>> deleteWeather(int id);
 }
-

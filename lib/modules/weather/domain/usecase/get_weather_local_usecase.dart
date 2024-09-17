@@ -6,7 +6,7 @@ import '../../data/model/weather_model/weather_model.dart';
 import '../abstract_respository/abstract_get_weather_repository.dart';
 
 class GetWeatherLocalUseCase extends IUseCase<int, WeatherModel> {
-  IGetWeatherRepository repository;
+  IWeatherRepository repository;
   GetWeatherLocalUseCase({
     required this.repository,
   });
