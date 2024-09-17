@@ -16,12 +16,12 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
   late TextEditingController weatherTextController;
-  late GetWeatherInformationBloc getWeatherInformationBloc;
+  late GetWeatherBloc getWeatherBloc;
 
   @override
   void initState() {
     weatherTextController = TextEditingController();
-    getWeatherInformationBloc = Modular.get<GetWeatherInformationBloc>();
+    getWeatherBloc = Modular.get<GetWeatherBloc>();
     super.initState();
   }
 
@@ -38,19 +38,19 @@ class _WeatherPageState extends State<WeatherPage> {
           TextButton(
               onPressed: () {
                 String text = weatherTextController.text;
-                getWeatherInformationBloc.add(GetWeatherInformation(text));
+                getWeatherBloc.add(GetWeather(text));
               },
               child: const Column(
                 children: [Text("Search Weather City")],
               )),
-          BlocBuilder<GetWeatherInformationBloc, GetWeatherInformationState>(
-            bloc: getWeatherInformationBloc,
+          BlocBuilder<GetWeatherBloc, GetWeatherState>(
+            bloc: getWeatherBloc,
             builder: (context, state) {
               return switch (state) {
-                (GetWeatherInformationFailure()) => Text("Error: ${state.message}"),
-                (GetWeatherInformationProgress()) => const CircularProgressIndicator(),
-                (GetWeatherInformationInitial()) => const Text("Tap a city to discover the Weather"),
-                (GetWeatherInformationSuccess()) => Column(
+                (GetWeatherFailure()) => Text("Error: ${state.message}"),
+                (GetWeatherProgress()) => const CircularProgressIndicator(),
+                (GetWeatherInitial()) => const Text("Tap a city to discover the Weather"),
+                (GetWeatherSuccess()) => Column(
                     children: [
                       FavoriteIcon(weatherModel: state.weatherModel),
                       Text(

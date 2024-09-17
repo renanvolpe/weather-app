@@ -7,15 +7,15 @@ import '../../../../domain/usecase/get_list_weather_information_local_usecase.da
 part 'get_list_weather_information_local_event.dart';
 part 'get_list_weather_information_local_state.dart';
 
-class GetListWeatherInformationLocalBloc
-    extends Bloc<GetListWeatherInformationLocalEvent, GetListWeatherInformationLocalState> {
-  GetListWeatherInformationLocalBloc(GetListWeatherInformationUseCase usecase)
-      : super(GetListWeatherInformationLocalInitial()) {
-    on<GetListWeatherInformationLocalStarted>((event, emit) async {
-      emit(GetListWeatherInformationLocalProgress());
+class GetListWeatherLocalBloc
+    extends Bloc<GetListWeatherLocalEvent, GetListWeatherLocalState> {
+  GetListWeatherLocalBloc(GetListWeatherLocalUseCase usecase)
+      : super(GetListWeatherLocalInitial()) {
+    on<GetListWeatherLocalStarted>((event, emit) async {
+      emit(GetListWeatherLocalProgress());
       var response = await usecase.call(NoParam());
-      response.fold((failure) => emit(GetListWeatherInformationLocalFailure(failure.message!)),
-          (success) => emit(GetListWeatherInformationLocalSuccess(success)));
+      response.fold((failure) => emit(GetListWeatherLocalFailure(failure.message!)),
+          (success) => emit(GetListWeatherLocalSuccess(success)));
     });
   }
 }

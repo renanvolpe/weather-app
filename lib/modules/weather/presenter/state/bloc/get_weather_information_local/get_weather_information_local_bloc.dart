@@ -8,17 +8,17 @@ import 'package:weather_app/modules/weather/domain/usecase/get_weather_informati
 part 'get_weather_information_local_event.dart';
 part 'get_weather_information_local_state.dart';
 
-class GetWeatherInformationLocalBloc extends Bloc<GetWeatherInformationLocalEvent, GetWeatherInformationLocalState> {
-  GetWeatherInformationLocalUseCase usecase;
-  GetWeatherInformationLocalBloc(
+class GetWeatherLocalBloc extends Bloc<GetWeatherLocalEvent, GetWeatherLocalState> {
+  GetWeatherLocalUseCase usecase;
+  GetWeatherLocalBloc(
     this.usecase,
-  ) : super(GetWeatherInformationLocalInitial()) {
-    on<GetWeatherInformationLocalStarted>((event, emit) async {
-      emit(GetWeatherInformationLocalProgress());
+  ) : super(GetWeatherLocalInitial()) {
+    on<GetWeatherLocalStarted>((event, emit) async {
+      emit(GetWeatherLocalProgress());
       var response = await usecase.call(event.id);
 
-      response.fold((failure) => emit(GetWeatherInformationLocalFailure(failure.message!)),
-          (success) => emit(GetWeatherInformationLocalSuccess(success)));
+      response.fold((failure) => emit(GetWeatherLocalFailure(failure.message!)),
+          (success) => emit(GetWeatherLocalSuccess(success)));
     });
   }
 }

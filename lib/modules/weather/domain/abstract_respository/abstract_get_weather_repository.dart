@@ -4,7 +4,7 @@ import '../../../core/utils/constants/failure.dart';
 import '../../data/model/weather_model/weather_model.dart';
 
 abstract class IGetWeatherRepository {
-  Future<Either<Failure, WeatherModel>> getWeatherInformation(String text);
-  Future<Either<Failure, WeatherModel>> getWeatherInformationLocal(int id);
-  Future<Either<Failure, List<WeatherModel>>> getListWeatherInformationLocal();
+  Future<Either<Failure, WeatherModel>> getWeather(String text);
+  Future<Either<Failure, WeatherModel>> getWeatherLocal(int id);
+  Future<Either<Failure, List<WeatherModel>>> getListWeatherLocal();
 }

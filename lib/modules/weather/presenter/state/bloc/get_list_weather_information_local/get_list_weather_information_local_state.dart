@@ -1,17 +1,17 @@
 part of 'get_list_weather_information_local_bloc.dart';
 
-sealed class GetListWeatherInformationLocalState {}
+sealed class GetListWeatherLocalState {}
 
-final class GetListWeatherInformationLocalInitial extends GetListWeatherInformationLocalState {}
+final class GetListWeatherLocalInitial extends GetListWeatherLocalState {}
 
-final class GetListWeatherInformationLocalProgress extends GetListWeatherInformationLocalState {}
+final class GetListWeatherLocalProgress extends GetListWeatherLocalState {}
 
-final class GetListWeatherInformationLocalSuccess extends GetListWeatherInformationLocalState {
+final class GetListWeatherLocalSuccess extends GetListWeatherLocalState {
   final List<WeatherModel> listWeather;
-  GetListWeatherInformationLocalSuccess(this.listWeather);
+  GetListWeatherLocalSuccess(this.listWeather);
 }
 
-final class GetListWeatherInformationLocalFailure extends GetListWeatherInformationLocalState {
+final class GetListWeatherLocalFailure extends GetListWeatherLocalState {
   final String message;
-  GetListWeatherInformationLocalFailure(this.message);
+  GetListWeatherLocalFailure(this.message);
 }

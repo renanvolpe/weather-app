@@ -1,13 +1,13 @@
 part of 'get_weather_information_bloc.dart';
 
-sealed class GetWeatherInformationEvent extends Equatable {
-  const GetWeatherInformationEvent();
+sealed class GetWeatherEvent extends Equatable {
+  const GetWeatherEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetWeatherInformation extends GetWeatherInformationEvent {
+class GetWeather extends GetWeatherEvent {
   final String text;
-  const GetWeatherInformation(this.text);
+  const GetWeather(this.text);
 }

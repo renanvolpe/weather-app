@@ -11,12 +11,16 @@ import 'data/impl_repository/get_forecast_repository_impl.dart';
 import 'data/impl_repository/get_weather_repository_impl.dart';
 import 'domain/abstract_respository/abstract_get_forecast_repository.dart';
 import 'domain/abstract_respository/abstract_get_weather_repository.dart';
+import 'domain/usecase/get_list_weather_information_local_usecase.dart';
+import 'domain/usecase/get_weather_information_local_usecase.dart';
 import 'domain/usecase/get_weather_information_usecase.dart';
 import 'presenter/screen/forecast_page.dart';
 import 'presenter/screen/weather_page.dart';
 import 'presenter/screen/welcome_page.dart';
 import 'presenter/state/bloc/get_forecast_7days/get_forecast7_days_bloc.dart';
+import 'presenter/state/bloc/get_list_weather_information_local/get_list_weather_information_local_bloc.dart';
 import 'presenter/state/bloc/get_weather_information/get_weather_information_bloc.dart';
+import 'presenter/state/bloc/get_weather_information_local/get_weather_information_local_bloc.dart';
 
 class WeatherModule extends Module {
   @override
@@ -29,21 +33,23 @@ class WeatherModule extends Module {
 
   @override
   void binds(Injector i) {
-    
     i.addSingleton<IGetWeatherRepository>(GetWeatherRepositoryImpl.new);
 
-    //Weather - Api 
+    //Weather - Api
     i.addSingleton<IWeatherDatasourceApi>(WeatherDatasourceImpl.new);
-    i.addSingleton(GetWeatherInformationUseCase.new);
-    i.addSingleton(GetWeatherInformationBloc.new);
+    i.addSingleton(GetWeatherUseCase.new);
+    i.addSingleton(GetWeatherBloc.new);
 
-    //Weather - Local 
+    //Weather - Local
     i.addSingleton<IWeatherDatasourceLocal>(WeatherDatasourceLocalImpl.new);
-    i.addSingleton(GetWeatherInformationUseCase.new);
-    i.addSingleton(GetWeatherInformationBloc.new);
 
+    i.addSingleton(GetWeatherLocalUseCase.new);
+    i.addSingleton(GetWeatherLocalBloc.new);
 
-    //Forecast 
+    i.addSingleton(GetListWeatherLocalUseCase.new);
+    i.addSingleton(GetListWeatherLocalBloc.new);
+
+    //Forecast
     i.addSingleton<IForecastDatasource>(ForecastDatasourceImpl.new);
     i.addSingleton<IGetForecastRepository>(GetForecastRepositoryImpl.new);
     i.addSingleton(GetForecast7daysUsecase.new);

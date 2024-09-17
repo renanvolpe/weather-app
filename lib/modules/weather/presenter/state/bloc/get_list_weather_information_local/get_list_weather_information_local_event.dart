@@ -1,5 +1,5 @@
 part of 'get_list_weather_information_local_bloc.dart';
 
-sealed class GetListWeatherInformationLocalEvent {}
+sealed class GetListWeatherLocalEvent {}
 
-class GetListWeatherInformationLocalStarted extends GetListWeatherInformationLocalEvent {}
+class GetListWeatherLocalStarted extends GetListWeatherLocalEvent {}

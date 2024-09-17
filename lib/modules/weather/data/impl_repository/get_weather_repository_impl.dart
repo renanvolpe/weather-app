@@ -16,19 +16,19 @@ class GetWeatherRepositoryImpl implements IGetWeatherRepository {
   });
 
   @override
-  Future<Either<Failure, WeatherModel>> getWeatherInformation(String text) async {
+  Future<Either<Failure, WeatherModel>> getWeather(String text) async {
     var response = await datasource.getWeatherApi(text);
     return response.fold((failure) => Left(failure), (success) => Right(success));
   }
 
   @override
-  Future<Either<Failure, WeatherModel>> getWeatherInformationLocal(int id) async {
+  Future<Either<Failure, WeatherModel>> getWeatherLocal(int id) async {
     var response = await datasourceLocal.getWeather(id);
     return response.fold((failure) => Left(failure), (success) => Right(success));
   }
 
   @override
-  Future<Either<Failure, List<WeatherModel>>> getListWeatherInformationLocal() async {
+  Future<Either<Failure, List<WeatherModel>>> getListWeatherLocal() async {
     var response = await datasourceLocal.getListWeather();
     return response.fold((failure) => Left(failure), (success) => Right(success));
   }

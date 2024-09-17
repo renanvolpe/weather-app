@@ -1,14 +1,14 @@
 part of 'get_weather_information_local_bloc.dart';
 
-sealed class GetWeatherInformationLocalEvent extends Equatable {
-  const GetWeatherInformationLocalEvent();
+sealed class GetWeatherLocalEvent extends Equatable {
+  const GetWeatherLocalEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetWeatherInformationLocalStarted extends GetWeatherInformationLocalEvent {
+class GetWeatherLocalStarted extends GetWeatherLocalEvent {
   final int id;
 
-  const GetWeatherInformationLocalStarted(this.id);
+  const GetWeatherLocalStarted(this.id);
 }

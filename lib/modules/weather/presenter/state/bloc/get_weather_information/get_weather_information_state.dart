@@ -1,24 +1,24 @@
 part of 'get_weather_information_bloc.dart';
 
-sealed class GetWeatherInformationState extends Equatable {
-  const GetWeatherInformationState();
+sealed class GetWeatherState extends Equatable {
+  const GetWeatherState();
 
   @override
   List<Object> get props => [];
 }
 
-final class GetWeatherInformationInitial extends GetWeatherInformationState {}
+final class GetWeatherInitial extends GetWeatherState {}
 
-final class GetWeatherInformationProgress extends GetWeatherInformationState {}
+final class GetWeatherProgress extends GetWeatherState {}
 
-final class GetWeatherInformationSuccess extends GetWeatherInformationState {
+final class GetWeatherSuccess extends GetWeatherState {
   final WeatherModel weatherModel;
 
-  const GetWeatherInformationSuccess(this.weatherModel);
+  const GetWeatherSuccess(this.weatherModel);
 }
 
-final class GetWeatherInformationFailure extends GetWeatherInformationState {
+final class GetWeatherFailure extends GetWeatherState {
   final String message;
 
-  const GetWeatherInformationFailure(this.message);
+  const GetWeatherFailure(this.message);
 }
