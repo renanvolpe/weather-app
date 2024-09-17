@@ -5,7 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
 import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
-import '../state/bloc/get_weather_information/get_weather_information_bloc.dart';
+import '../state/bloc/get_weather/get_weather_information_bloc.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
