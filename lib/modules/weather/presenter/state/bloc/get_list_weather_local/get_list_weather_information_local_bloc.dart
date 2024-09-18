@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:weather_app/modules/core/utils/constants/abstract_usecase.dart';
+import 'package:weather_app/modules/core/utils/abstract_usecase.dart';
 
 import '../../../../data/model/weather_model/weather_model.dart';
 import '../../../../domain/usecase/get_list_weather_local_usecase.dart';

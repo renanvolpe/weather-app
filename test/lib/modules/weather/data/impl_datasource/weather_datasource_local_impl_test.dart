@@ -20,7 +20,7 @@ void main() {
     var config = SqliteConfig();
     await config.initDatabase();
 
-    datasource = WeatherDatasourceLocalImpl(sqliteConfig: config);
+    datasource = WeatherDatasourceLocalImpl(config);
   });
 
   tearDownAll(() {});

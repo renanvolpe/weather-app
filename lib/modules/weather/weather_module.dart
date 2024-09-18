@@ -1,9 +1,10 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:weather_app/modules/app_module.dart';
 import 'package:weather_app/modules/weather/data/abstract_datasource/abstract_forecast_datasource.dart';
+import 'package:weather_app/modules/weather/domain/usecase/delete_weather_local_usecase.dart';
 import 'package:weather_app/modules/weather/domain/usecase/get_forecast_7days_usecase.dart';
 import 'package:weather_app/modules/weather/presenter/state/bloc/post_weather_local/post_weather_local_bloc.dart';
 
-import '../shared/shared_module.dart';
 import 'data/abstract_datasource/abstract_weather_datasource.dart';
 import 'data/impl_datasource/forecast_datasource_impl.dart';
 import 'data/impl_datasource/weather_datasource_impl.dart';
@@ -19,6 +20,7 @@ import 'domain/usecase/post_weather_local_usecase.dart';
 import 'presenter/screen/forecast_page.dart';
 import 'presenter/screen/weather_page.dart';
 import 'presenter/screen/welcome_page.dart';
+import 'presenter/state/bloc/delete_weather_local/delete_weather_local_bloc.dart';
 import 'presenter/state/bloc/get_forecast_7days/get_forecast7_days_bloc.dart';
 import 'presenter/state/bloc/get_list_weather_local/get_list_weather_information_local_bloc.dart';
 import 'presenter/state/bloc/get_weather/get_weather_information_bloc.dart';
@@ -35,7 +37,7 @@ class WeatherModule extends Module {
 
   @override
   void binds(Injector i) {
-    //Weather
+    // //Weather
     i.addSingleton<IWeatherRepository>(GetWeatherRepositoryImpl.new);
 
     //Weather - Api
@@ -55,6 +57,9 @@ class WeatherModule extends Module {
     i.addSingleton(GetListWeatherLocalUseCase.new);
     i.addSingleton(GetListWeatherLocalBloc.new);
 
+    i.addSingleton(DeleteWeatherLocalBloc.new);
+    i.addSingleton(DeleteWeatherLocalUsecase.new);
+
     //Forecast - Api
     i.addSingleton<IForecastDatasource>(ForecastDatasourceImpl.new);
     i.addSingleton<IGetForecastRepository>(GetForecastRepositoryImpl.new);
@@ -65,5 +70,5 @@ class WeatherModule extends Module {
   }
 
   @override
-  List<Module> get imports => [SharedModule()];
+  List<Module> get imports => [AppModule()];
 }
