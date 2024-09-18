@@ -6,4 +6,4 @@ abstract class IUseCase<Input, Output> {
   Future<Either<Failure, Output>> call(Input params);
 }
 
- class NoParam{}
+class NoParam{}
