@@ -10,8 +10,8 @@ class SharedModule extends Module {
     i.add(() => Dio());
     i.addSingleton<DioService>(DioClient.new);
 
-    i.addSingleton(() async => await SqliteConfig().initDatabase());
     i.addSingleton(SqliteConfig.new);
+    i.addSingleton(() async => await Modular.get<SqliteConfig>().initDatabase());
 
     super.exportedBinds(i);
   }

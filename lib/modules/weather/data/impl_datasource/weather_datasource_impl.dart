@@ -3,8 +3,8 @@ import 'package:weather_app/modules/shared/dio/dio_service.dart';
 import 'package:weather_app/modules/weather/data/abstract_datasource/abstract_weather_datasource.dart';
 import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
-import '../../../core/utils/constants/endpoint.dart';
-import '../../../core/utils/constants/failure.dart';
+import '../../../core/utils/endpoint.dart';
+import '../../../core/utils/failure.dart';
 
 class WeatherDatasourceImpl implements IWeatherDatasourceApi {
   DioService dioClient;

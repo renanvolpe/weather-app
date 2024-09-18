@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:weather_app/modules/shared/sqlite/fields.dart';
 import 'package:weather_app/modules/shared/sqlite/tables.dart';
@@ -25,9 +26,8 @@ class SqliteConfig {
         await _recreateDB(_database!);
         await initDatabase();
       }
-      
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       throw Error();
     }
   }
@@ -56,7 +56,11 @@ class SqliteConfig {
           ${WeatherFields.current_id} ${TypeFields.id},
           ${WeatherFields.location_id} ${TypeFields.id}
         );
+        ''';
+    await db.execute(queryCreateTable);
 
+    queryCreateTable = '''
+        
           CREATE TABLE IF NOT EXISTS ${Tables.locationTable} (
           ${LocationFields.id} ${TypeFields.idPrymary},
           ${LocationFields.name} ${TypeFields.varchar},
@@ -68,7 +72,11 @@ class SqliteConfig {
           ${LocationFields.localtime_epoch} ${TypeFields.id},
           ${LocationFields.localtime} ${TypeFields.id}
         );
+        ''';
 
+    await db.execute(queryCreateTable);
+
+    queryCreateTable = '''
 
           CREATE TABLE IF NOT EXISTS ${Tables.currentTable} (
           ${CurrentFields.id} ${TypeFields.idPrymary},
@@ -80,14 +88,20 @@ class SqliteConfig {
           ${CurrentFields.feelslike_c} ${TypeFields.float}
         );
 
-          CREATE TABLE IF NOT EXISTS ${Tables.conditionTable} (
+        ''';
+
+    await db.execute(queryCreateTable);
+
+    queryCreateTable = '''
+
+        CREATE TABLE IF NOT EXISTS ${Tables.conditionTable} (
           ${ConditionFields.id} ${TypeFields.idPrymary},
           ${ConditionFields.text} ${TypeFields.varchar},
           ${ConditionFields.icon} ${TypeFields.varchar}
         );
-        
-      ''';
+        ''';
 
-    return await db.execute(queryCreateTable);
+    await db.execute(queryCreateTable);
+    return;
   }
 }

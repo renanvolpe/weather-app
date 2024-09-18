@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../core/utils/constants/failure.dart';
+import '../../core/utils/failure.dart';
 
 
 //TODO to make like dioService that separete sqlite proccess from code

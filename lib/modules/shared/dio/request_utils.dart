@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../../core/utils/constants/endpoint.dart';
+import '../../core/utils/endpoint.dart';
 
 class RequestUtils {
   static String pathDio(String endpoint) => Endpoint.apiV1 + endpoint;

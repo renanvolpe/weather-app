@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:weather_app/modules/core/utils/constants/failure.dart';
+import 'package:weather_app/modules/core/utils/failure.dart';
 import 'package:weather_app/modules/weather/data/model/forecastday/forecastday_model.dart';
 import 'package:weather_app/modules/weather/domain/usecase/get_forecast_7days_usecase.dart';
 
-import '../../../core/utils/constants/endpoint.dart';
+import '../../../core/utils/endpoint.dart';
 import '../../../shared/dio/dio_service.dart';
 import '../abstract_datasource/abstract_forecast_datasource.dart';
 

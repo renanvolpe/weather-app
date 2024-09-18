@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../core/utils/constants/failure.dart';
+import '../../../core/utils/failure.dart';
 import '../../data/model/weather_model/weather_model.dart';
 
 abstract class IWeatherRepository {

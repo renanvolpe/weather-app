@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../core/utils/constants/failure.dart';
+import '../../../core/utils/failure.dart';
 import '../../domain/abstract_respository/abstract_get_forecast_repository.dart';
 import '../../domain/usecase/get_forecast_7days_usecase.dart';
 import '../abstract_datasource/abstract_forecast_datasource.dart';
