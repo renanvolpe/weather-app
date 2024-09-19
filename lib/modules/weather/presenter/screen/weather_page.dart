@@ -11,7 +11,9 @@ import '../widget/btn_day.dart';
 import '../widget/day_forecast.dart';
 import '../widget/favorite_icon.dart';
 import '../widget/forecast_week.dart';
+import '../widget/rain_chance.dart';
 import '../widget/weather_feature.dart';
+import '../widget/weather_listtile.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -91,6 +93,17 @@ class _WeatherPageState extends State<WeatherPage> {
               padding: EdgeInsets.all(10),
               child: DayForecast(),
             ),
+
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: RainChance(),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: WeatherListTile(),
+            ),
+
             BlocBuilder<GetWeatherBloc, GetWeatherState>(
               bloc: getWeatherBloc,
               builder: (context, state) {

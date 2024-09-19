@@ -3,10 +3,10 @@ import 'package:gap/gap.dart';
 
 import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
-import 'line_chart.dart';
+import 'chance_rain_bar_chart.dart';
 
-class DayForecast extends StatelessWidget {
-  const DayForecast({
+class RainChance extends StatelessWidget {
+  const RainChance({
     super.key,
   });
 
@@ -24,19 +24,19 @@ class DayForecast extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 color: AppColor.kWhite,
                 child: const Icon(
-                  Icons.calendar_month,
+                  Icons.new_releases_outlined,
                   size: 20,
                   color: AppColor.kBlack,
                 ),
               )),
               const Gap(10),
               Text(
-                "Day forecast",
+                "Chance of rain",
                 style: Style.darkStyle,
               ),
             ],
           ),
-          const DayForecastLineChart()
+          BarChartSample1()
         ],
       ),
     );
