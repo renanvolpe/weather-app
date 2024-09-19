@@ -1,8 +1,7 @@
 name: weather_app
 description: "A new Flutter project."
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -18,7 +17,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
 
   cupertino_icons: ^1.0.8
   flutter_bloc: ^8.1.6
@@ -41,7 +39,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  
   flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
@@ -49,7 +46,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -57,7 +53,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - .env
+    - .env
+    - assets/
+    - assets/logo/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

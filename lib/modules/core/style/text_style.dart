@@ -29,8 +29,8 @@ abstract class Style {
   static TextStyle darkStyle =
       textStyle.copyWith(fontSize: 18, fontWeight: FontWeight.w500, color: AppColor.kBlackText);
 
-  static TextStyle hintStyle = textStyle.copyWith(
-    color: AppColor.kBackgroundLight,
+  static TextStyle whiteStyle = textStyle.copyWith(
+    color: AppColor.kWhite,
     fontSize: 16,
     fontWeight: FontWeight.w400,
   );
