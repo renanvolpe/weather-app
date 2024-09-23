@@ -10,6 +10,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.kWhite,
       body: SafeArea(
         child: Stack(
           // mainAxisAlignment: MainAxisAlignment.center,
@@ -17,8 +18,8 @@ class WelcomePage extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.all(80),
-                child: Image.asset("assets/logo/logo-no-background.png"),
+                padding: const EdgeInsets.all(20),
+                child: Text("Develop by Renan Volpe", style: Style.defaultStyle.copyWith(fontSize: 14)),
               ),
             ),
             Align(

@@ -6,19 +6,24 @@ import '../../../core/style/text_style.dart';
 class BtnDayDefault extends StatelessWidget {
   const BtnDayDefault({
     super.key,
+    this.onTap,
+    required this.title,
   });
+  final Function()? onTap;
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 7),
-          decoration: BoxDecoration(color: AppColor.kWhite, borderRadius: BorderRadius.circular(12)),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+          decoration: BoxDecoration(color: AppColor.grey1, borderRadius: BorderRadius.circular(12)),
           child: Text(
-            "Tomorrow",
+            title,
             textAlign: TextAlign.center,
-            style: Style.defaultStyle.copyWith(
+            style: Style.defaultLightStyle.copyWith(
               fontWeight: FontWeight.w600,
             ),
           )),
