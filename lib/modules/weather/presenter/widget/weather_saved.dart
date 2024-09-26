@@ -27,41 +27,41 @@ class _WeathersSavedState extends State<WeathersSaved> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Gap(15),
-            Text(
-              "Saved cities:",
-              style: Style.darkStyle.copyWith(fontSize: 22),
-            ),
-          ],
-        ),
-        BlocBuilder<GetListWeatherLocalBloc, GetListWeatherLocalState>(
-          bloc: getListWeatherLocalBloc,
-          builder: (context, state) {
-            return switch (state) {
-              (GetListWeatherLocalFailure()) => Text("Error: ${state.message}"),
-              (GetListWeatherLocalProgress()) => const CircularProgressIndicator(),
-              (GetListWeatherLocalInitial()) => const Text("Add Some City first"),
-              (GetListWeatherLocalSuccess()) => ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: state.listWeather.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: WeatherListTile(
-                        weather: state.listWeather[index],
-                      ),
-                    );
-                  })
-            };
-          },
-        ),
-      ],
+    return BlocBuilder<GetListWeatherLocalBloc, GetListWeatherLocalState>(
+      bloc: getListWeatherLocalBloc,
+      builder: (context, state) {
+        return switch (state) {
+          (GetListWeatherLocalFailure()) => Text(state.message),
+          (GetListWeatherLocalProgress()) => const CircularProgressIndicator(),
+          (GetListWeatherLocalInitial()) => const Text("Add Some City first"),
+          (GetListWeatherLocalSuccess()) => Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Gap(15),
+                    Text(
+                      "Saved cities:",
+                      style: Style.darkStyle.copyWith(fontSize: 22),
+                    ),
+                  ],
+                ),
+                ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: state.listWeather.length,
+                    itemBuilder: (_, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: WeatherListTile(
+                          weather: state.listWeather[index],
+                        ),
+                      );
+                    }),
+              ],
+            )
+        };
+      },
     );
   }
 }

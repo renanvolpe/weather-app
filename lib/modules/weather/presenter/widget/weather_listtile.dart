@@ -19,7 +19,7 @@ class WeatherListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Modular.get<GetWeatherBloc>().add(GetWeather(weather.location.name)),
+      onTap: () => Modular.get<GetWeatherBloc>().add(GetWeather(text: weather.location.name, id: weather.id)),
       child: Container(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 15),
           decoration: BoxDecoration(color: AppColor.kBackgroundLight, borderRadius: BorderRadius.circular(15)),

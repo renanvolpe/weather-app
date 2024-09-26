@@ -9,5 +9,6 @@ sealed class GetWeatherEvent extends Equatable {
 
 class GetWeather extends GetWeatherEvent {
   final String text;
-  const GetWeather(this.text);
+  final int? id;
+  const GetWeather({required this.text, this.id});
 }

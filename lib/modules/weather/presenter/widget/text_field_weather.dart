@@ -25,7 +25,7 @@ class TextFieldWeather extends StatelessWidget {
           hintText: "Search city location",
           hintStyle: Style.greyLightStyle,
           suffixIcon: IconButton(
-            onPressed: () => Modular.get<GetWeatherBloc>().add(GetWeather(weatherTextController.text)),
+            onPressed: () => Modular.get<GetWeatherBloc>().add(GetWeather(text: weatherTextController.text)),
             icon: const Icon(
               Icons.search,
               color: AppColor.kgrey2,

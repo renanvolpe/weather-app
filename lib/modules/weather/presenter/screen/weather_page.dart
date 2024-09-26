@@ -34,7 +34,9 @@ class _WeatherPageState extends State<WeatherPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextFieldWeather(),
             ),
+            const Gap(10),
             const CurrentWeatherCard(),
+            const Gap(10),
             const WeathersSaved(),
             const Gap(30)
           ],

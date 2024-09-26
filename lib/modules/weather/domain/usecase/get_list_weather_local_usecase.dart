@@ -1,5 +1,3 @@
-
-
 import 'package:dartz/dartz.dart';
 
 import '../../../core/utils/abstract_usecase.dart';
@@ -18,6 +16,9 @@ class GetListWeatherLocalUseCase extends IUseCase<NoParam, List<WeatherModel>> {
     return response.fold((failure) {
       return Left(failure);
     }, (success) {
+      if (success.isEmpty) {
+        return const Left(UnexpectedFailure("There is no cirty saved yet"));
+      }
       return Right(success);
     });
   }

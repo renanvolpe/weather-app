@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:weather_app/modules/weather/data/model/weather_model/weather_model.dart';
 
+import '../../../../domain/params/get_weather_params.dart';
 import '../../../../domain/usecase/get_weather_usecase.dart';
 
 part 'get_weather_information_event.dart';
@@ -15,9 +16,10 @@ class GetWeatherBloc extends Bloc<GetWeatherEvent, GetWeatherState> {
   ) : super(GetWeatherInitial()) {
     on<GetWeather>((event, emit) async {
       emit(GetWeatherProgress());
-      var response = await usecase.call(event.text);
-      response.fold((failure) => emit(GetWeatherFailure(failure.message!)),
-          (success) => emit(GetWeatherSuccess(success)));
+      GetWeatherParams param = GetWeatherParams(text: event.text, id: event.id);
+      var response = await usecase.call(param);
+      response.fold(
+          (failure) => emit(GetWeatherFailure(failure.message!)), (success) => emit(GetWeatherSuccess(success)));
     });
   }
 }
