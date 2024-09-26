@@ -28,6 +28,7 @@ class FavoriteIcon extends StatelessWidget {
           listener: (context, state) {
             if (state is PostWeatherLocalSuccess) {
               Modular.get<GetListWeatherLocalBloc>().add(GetListWeatherLocalStarted());
+              weatherModel.id = state.id;
             }
           },
         ),
@@ -51,10 +52,8 @@ class FavoriteIcon extends StatelessWidget {
                     setState(() => isFavorite = !isFavorite);
                   } else {
                     //just will has id when it from local value
-                    if (weatherModel.id != null) {
-                      deleteWeatherLocalBloc.add(DeleteWeatherLocalStarted(weatherModel.id!));
-                      setState(() => isFavorite = !isFavorite);
-                    }
+                    deleteWeatherLocalBloc.add(DeleteWeatherLocalStarted(weatherModel.id!));
+                    setState(() => isFavorite = !isFavorite);
                   }
                 },
                 icon: isFavorite

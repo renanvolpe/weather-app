@@ -5,7 +5,6 @@ import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
 import '../state/bloc/get_weather/get_weather_information_bloc.dart';
 
-
 class TextFieldWeather extends StatelessWidget {
   final TextEditingController weatherTextController = TextEditingController();
 
@@ -25,7 +24,10 @@ class TextFieldWeather extends StatelessWidget {
           hintText: "Search city location",
           hintStyle: Style.greyLightStyle,
           suffixIcon: IconButton(
-            onPressed: () => Modular.get<GetWeatherBloc>().add(GetWeather(text: weatherTextController.text)),
+            onPressed: () {
+              Modular.get<GetWeatherBloc>().add(GetWeather(text: weatherTextController.text));
+              FocusScope.of(context).unfocus();
+            },
             icon: const Icon(
               Icons.search,
               color: AppColor.kgrey2,
