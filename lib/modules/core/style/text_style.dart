@@ -34,4 +34,10 @@ abstract class Style {
     fontSize: 16,
     fontWeight: FontWeight.w400,
   );
+
+   static TextStyle greyLightStyle = textStyle.copyWith(
+    color: AppColor.kgrey2,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
 }
