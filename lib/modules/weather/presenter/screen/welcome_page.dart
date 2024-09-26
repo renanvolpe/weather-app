@@ -27,7 +27,7 @@ class WelcomePage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(25),
                 child: Text("Let's See The Weather Arround you",
-                    style: Style.primaryStyle.copyWith(fontSize: 70, fontWeight: FontWeight.bold)),
+                    style: Style.darkStyle.copyWith(fontSize: 70, fontWeight: FontWeight.bold)),
               ),
             ),
             Align(
@@ -37,10 +37,10 @@ class WelcomePage extends StatelessWidget {
                   child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 35),
                       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 55),
-                      decoration: BoxDecoration(color: AppColor.kPrimary, borderRadius: BorderRadius.circular(15)),
+                      decoration: BoxDecoration(color: AppColor.kgrey2, borderRadius: BorderRadius.circular(60)),
                       child: Text(
                         "Let's see the app",
-                        style: Style.whiteStyle.copyWith(fontSize: 20),
+                        style: Style.defaultLightStyle.copyWith(fontSize: 20),
                       ))),
             ),
           ],

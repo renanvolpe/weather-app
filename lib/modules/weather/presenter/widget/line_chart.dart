@@ -110,13 +110,13 @@ class _DayForecastLineChartState extends State<DayForecastLineChart> {
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
           return const FlLine(
-            color: AppColor.grey2,
+            color: AppColor.kgrey2,
             strokeWidth: 0.5,
           );
         },
         getDrawingVerticalLine: (value) {
           return const FlLine(
-            color: AppColor.grey2,
+            color: AppColor.kgrey2,
             strokeWidth: 0.5,
           );
         },

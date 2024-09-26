@@ -13,13 +13,13 @@ class BarChartSample1 extends StatefulWidget {
         AppColor.kPrimaryLight,
         AppColor.kWhite,
         AppColor.grey1,
-        AppColor.grey2,
-        AppColor.kAccent,
+        AppColor.kgrey2,
+        AppColor.kPrimaryLight,
       ];
 
   final Color barBackgroundColor = AppColor.kPrimary.withOpacity(0.1);
   final Color barColor = AppColor.kPrimary;
-  final Color touchedBarColor = AppColor.kAccent;
+  final Color touchedBarColor = AppColor.kPrimaryLight;
 
   @override
   State<StatefulWidget> createState() => BarChartSample1State();

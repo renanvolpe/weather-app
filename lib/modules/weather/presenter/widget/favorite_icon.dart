@@ -32,7 +32,7 @@ class FavoriteIcon extends StatelessWidget {
               },
               icon: isFavorite
                   ? const Icon(Icons.favorite, color: Colors.red)
-                  : const Icon(Icons.favorite_border, color: AppColor.kWhite));
+                  : const Icon(Icons.favorite_border, color: AppColor.kPrimaryDark));
         })
       ],
     );

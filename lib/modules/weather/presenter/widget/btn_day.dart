@@ -19,13 +19,11 @@ class BtnDayDefault extends StatelessWidget {
       onTap: onTap,
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          decoration: BoxDecoration(color: AppColor.grey1, borderRadius: BorderRadius.circular(12)),
+          decoration: BoxDecoration(color: AppColor.kgrey2, borderRadius: BorderRadius.circular(60)),
           child: Text(
             title,
             textAlign: TextAlign.center,
-            style: Style.defaultLightStyle.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: Style.defaultLightStyle.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
           )),
     );
   }
