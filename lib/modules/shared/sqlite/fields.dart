@@ -24,6 +24,10 @@ class CurrentFields {
   static const String wind_kph = 'wind_kph';
   static const String humidity = 'humidity';
   static const String feelslike_c = 'feelslike_c';
+  static const String precip_mm = 'precip_mm';
+  static const String windchill_c = 'windchill_c';
+  static const String dewpoint_c = 'dewpoint_c';
+  static const String vis_km = 'vis_km';
 }
 
 class ConditionFields {

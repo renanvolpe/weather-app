@@ -85,10 +85,15 @@ class SqliteConfig {
           ${CurrentFields.temp_f} ${TypeFields.float},
           ${CurrentFields.wind_kph} ${TypeFields.float},
           ${CurrentFields.humidity} ${TypeFields.int},
-          ${CurrentFields.feelslike_c} ${TypeFields.float}
+          ${CurrentFields.feelslike_c} ${TypeFields.float},
+          ${CurrentFields.precip_mm} ${TypeFields.float},
+          ${CurrentFields.windchill_c} ${TypeFields.float},
+          ${CurrentFields.dewpoint_c} ${TypeFields.float},
+          ${CurrentFields.vis_km} ${TypeFields.float}
         );
 
         ''';
+        
 
     await db.execute(queryCreateTable);
 

@@ -10,6 +10,11 @@ class CurrentModel {
   double wind_kph;
   int humidity;
   double feelslike_c;
+  double precip_mm;
+  double windchill_c;
+  double dewpoint_c;
+  double vis_km;
+  
   CurrentModel({
     required this.temp_c,
     required this.temp_f,
@@ -17,6 +22,10 @@ class CurrentModel {
     required this.wind_kph,
     required this.humidity,
     required this.feelslike_c,
+    required this.precip_mm,
+    required this.windchill_c,
+    required this.dewpoint_c,
+    required this.vis_km,
   });
 
   CurrentModel copyWith({
@@ -26,6 +35,10 @@ class CurrentModel {
     double? wind_kph,
     int? humidity,
     double? feelslike_c,
+    double? precip_mm,
+    double? windchill_c,
+    double? dewpoint_c,
+    double? vis_km,
   }) {
     return CurrentModel(
       temp_c: temp_c ?? this.temp_c,
@@ -34,6 +47,10 @@ class CurrentModel {
       wind_kph: wind_kph ?? this.wind_kph,
       humidity: humidity ?? this.humidity,
       feelslike_c: feelslike_c ?? this.feelslike_c,
+      precip_mm: precip_mm ?? this.precip_mm,
+      windchill_c: windchill_c ?? this.windchill_c,
+      dewpoint_c: dewpoint_c ?? this.dewpoint_c,
+      vis_km: vis_km ?? this.vis_km,
     );
   }
 
@@ -45,6 +62,10 @@ class CurrentModel {
       'wind_kph': wind_kph,
       'humidity': humidity,
       'feelslike_c': feelslike_c,
+      'precip_mm': precip_mm,
+      'windchill_c': windchill_c,
+      'dewpoint_c': dewpoint_c,
+      'vis_km': vis_km,
     };
   }
 
@@ -56,6 +77,10 @@ class CurrentModel {
       wind_kph: map['wind_kph'] as double,
       humidity: map['humidity'] as int,
       feelslike_c: map['feelslike_c'] as double,
+      precip_mm: map['precip_mm'] as double,
+      windchill_c: map['windchill_c'] as double,
+      dewpoint_c: map['dewpoint_c'] as double,
+      vis_km: map['vis_km'] as double,
     );
   }
 
@@ -65,7 +90,7 @@ class CurrentModel {
 
   @override
   String toString() {
-    return 'CurrentModel(temp_c: $temp_c, temp_f: $temp_f, condition: $condition, wind_kph: $wind_kph, humidity: $humidity, feelslike_c: $feelslike_c)';
+    return 'CurrentModel(temp_c: $temp_c, temp_f: $temp_f, condition: $condition, wind_kph: $wind_kph, humidity: $humidity, feelslike_c: $feelslike_c, precip_mm: $precip_mm, windchill_c: $windchill_c, dewpoint_c: $dewpoint_c, vis_km: $vis_km)';
   }
 
   @override
@@ -78,7 +103,11 @@ class CurrentModel {
       other.condition == condition &&
       other.wind_kph == wind_kph &&
       other.humidity == humidity &&
-      other.feelslike_c == feelslike_c;
+      other.feelslike_c == feelslike_c &&
+      other.precip_mm == precip_mm &&
+      other.windchill_c == windchill_c &&
+      other.dewpoint_c == dewpoint_c &&
+      other.vis_km == vis_km;
   }
 
   @override
@@ -88,6 +117,10 @@ class CurrentModel {
       condition.hashCode ^
       wind_kph.hashCode ^
       humidity.hashCode ^
-      feelslike_c.hashCode;
+      feelslike_c.hashCode ^
+      precip_mm.hashCode ^
+      windchill_c.hashCode ^
+      dewpoint_c.hashCode ^
+      vis_km.hashCode;
   }
 }

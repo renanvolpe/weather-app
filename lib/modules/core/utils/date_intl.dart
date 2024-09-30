@@ -20,4 +20,12 @@ class DateIntl {
     final DateTime dateTime = inputFormat.parse(dateTimeString);
     return outputFormat.format(dateTime);
   }
+
+  static String stringToDateForecast(String dateTimeString) {
+    final DateFormat inputFormat = DateFormat('yyyy-MM-dd');
+    final DateFormat outputFormat = DateFormat('dd / MM');
+
+    final DateTime dateTime = inputFormat.parse(dateTimeString);
+    return outputFormat.format(dateTime);
+  }
 }
