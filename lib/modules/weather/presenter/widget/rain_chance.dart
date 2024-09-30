@@ -24,14 +24,14 @@ class RainChance extends StatelessWidget {
                 padding: const EdgeInsets.all(5),
                 color: AppColor.kWhite,
                 child: const Icon(
-                  Icons.new_releases_outlined,
+                  Icons.thermostat,
                   size: 20,
                   color: AppColor.kBlack,
                 ),
               )),
               const Gap(10),
               Text(
-                "Chance of rain",
+                "Avarage Temperature Graphic",
                 style: Style.darkStyle,
               ),
             ],

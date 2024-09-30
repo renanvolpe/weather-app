@@ -3,23 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
-import '../../../core/utils/date_intl.dart';
 import '../state/bloc/get_weather/get_weather_information_bloc.dart';
-import 'btn_day.dart';
-import 'favorite_icon.dart';
 
-class CurrentWeatherCard extends StatefulWidget {
-  const CurrentWeatherCard({
+class ForecastDetailCard extends StatefulWidget {
+  const ForecastDetailCard({
     super.key,
   });
 
   @override
-  State<CurrentWeatherCard> createState() => _CurrentWeatherCardState();
+  State<ForecastDetailCard> createState() => _ForecastDetailCardState();
 }
 
-class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
+class _ForecastDetailCardState extends State<ForecastDetailCard> {
   late GetWeatherBloc getWeatherBloc;
   late TextEditingController weatherTextController;
 
@@ -50,9 +46,9 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               state.weatherModel.location.name,
@@ -64,8 +60,6 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                             ),
                           ],
                         ),
-                        const Spacer(),
-                        FavoriteIcon(weatherModel: state.weatherModel),
                       ],
                     ),
                     const Gap(20),
@@ -99,65 +93,8 @@ class _CurrentWeatherCardState extends State<CurrentWeatherCard> {
                           state.weatherModel.current.condition.text,
                           style: Style.darkStyle.copyWith(fontSize: 40),
                         ),
-                        const Gap(10),
-                        Text(
-                          DateIntl.stringToDateHome(state.weatherModel.location.localtime),
-                          style: Style.darkStyle,
-                        ),
-                        const Gap(5),
-                        const Divider(
-                          color: AppColor.kgrey2,
-                        ),
-                        const Gap(5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              children: [
-                                Text(
-                                  "Feels like",
-                                  style: Style.darkStyle.copyWith(fontSize: 12),
-                                ),
-                                Text(
-                                  "${state.weatherModel.current.feelslike_c}ºC",
-                                  style: Style.darkStyle.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Humidity",
-                                  style: Style.darkStyle.copyWith(fontSize: 12),
-                                ),
-                                Text(
-                                  "${state.weatherModel.current.humidity}%",
-                                  style: Style.darkStyle.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Wind",
-                                  style: Style.darkStyle.copyWith(fontSize: 12),
-                                ),
-                                Text(
-                                  "${state.weatherModel.current.wind_kph}Km/h",
-                                  style: Style.darkStyle.copyWith(fontSize: 18, fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            )
-                          ],
-                        )
                       ],
                     ),
-                    const Gap(15),
-                    BtnDayDefault(
-                      title: "7 Days Forecast",
-                      onTap: () => Modular.to.pushNamed("./forecast", arguments: state.weatherModel.location.name),
-                    ),
-                    // const Gap(10),
                   ],
                 ),
               ),

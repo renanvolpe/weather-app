@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -7,7 +8,14 @@ import '../../../core/style/text_style.dart';
 class WeatherFeature extends StatelessWidget {
   const WeatherFeature({
     super.key,
+    required this.icon,
+    required this.title,
+    required this.value,
   });
+
+  final IconData icon;
+  final String title;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +29,8 @@ class WeatherFeature extends StatelessWidget {
                 child: Container(
               padding: const EdgeInsets.all(5),
               color: AppColor.kWhite,
-              child: const Icon(
-                Icons.wind_power,
+              child: Icon(
+                icon,
                 size: 20,
                 color: AppColor.kBlack,
               ),
@@ -32,12 +40,12 @@ class WeatherFeature extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Wind Spped",
+                  title,
                   style: Style.darkStyle.copyWith(fontSize: 16),
                 ),
                 const Gap(10),
                 Text(
-                  "12Km/h",
+                  value,
                   style: Style.darkStyle.copyWith(fontSize: 14),
                 ),
               ],

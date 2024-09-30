@@ -1,9 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
 import 'package:weather_app/modules/core/style/text_style.dart';
+import 'package:weather_app/modules/core/utils/date_intl.dart';
 
 import '../../../core/style/app_color.dart';
+import '../../data/model/forecastday/forecastday_model.dart';
+import '../state/bloc/get_forecast_7days/get_forecast7_days_bloc.dart';
 
 class BarChartSample1 extends StatefulWidget {
   BarChartSample1({super.key});
@@ -26,42 +31,61 @@ class BarChartSample1 extends StatefulWidget {
 }
 
 class BarChartSample1State extends State<BarChartSample1> {
+  late GetForecast7DaysBloc getForecast7DaysBloc;
+  List<ForecastdayModel> listValues = [];
+  @override
+  void initState() {
+    super.initState();
+    getForecast7DaysBloc = Modular.get<GetForecast7DaysBloc>();
+  }
+
   final Duration animDuration = const Duration(milliseconds: 250);
 
   int touchedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: Stack(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+    return BlocBuilder<GetForecast7DaysBloc, GetForecast7DaysState>(
+      bloc: Modular.get<GetForecast7DaysBloc>(),
+      builder: (context, state) {
+        if (state is GetForecast7DaysSuccess) {
+          for (var e in state.list) {
+            listValues.add(e);
+          }
+          return AspectRatio(
+            aspectRatio: 1,
+            child: Stack(
               children: <Widget>[
-                Row(
-                  children: [
-                    const Gap(7),
-                    Text("ºC", style: Style.defaultStyle.copyWith(fontSize: 14)),
-                  ],
-                ),
-                const Gap(15),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: BarChart(
-                      mainBarData(),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          const Gap(7),
+                          Text("ºC", style: Style.defaultStyle.copyWith(fontSize: 14)),
+                        ],
+                      ),
+                      const Gap(15),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: BarChart(
+                            mainBarData(),
+                          ),
+                        ),
+                      ),
+                      const Gap(5),
+                    ],
                   ),
                 ),
-                const Gap(5),
               ],
             ),
-          ),
-        ],
-      ),
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 
@@ -94,33 +118,14 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-  List<double> listValues = [
-    15.0,
-    22.4,
-    25.3,
-    24.0,
-    29.0,
-    33.0,
-    26.0,
-    36.0,
-  ];
-
-  List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
+  List<BarChartGroupData> showingGroups() => List.generate(3, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, listValues[0], isTouched: i == touchedIndex);
+            return makeGroupData(0, listValues[0].day.avgtemp_c, isTouched: i == touchedIndex);
           case 1:
-            return makeGroupData(1, listValues[2], isTouched: i == touchedIndex);
+            return makeGroupData(1, listValues[1].day.avgtemp_c, isTouched: i == touchedIndex);
           case 2:
-            return makeGroupData(2, listValues[i.toInt()], isTouched: i == touchedIndex);
-          case 3:
-            return makeGroupData(3, listValues[i.toInt()], isTouched: i == touchedIndex);
-          case 4:
-            return makeGroupData(4, listValues[i.toInt()], isTouched: i == touchedIndex);
-          case 5:
-            return makeGroupData(5, listValues[i.toInt()], isTouched: i == touchedIndex);
-          case 6:
-            return makeGroupData(6, listValues[i.toInt()], isTouched: i == touchedIndex);
+            return makeGroupData(2, listValues[2].day.avgtemp_c, isTouched: i == touchedIndex);
           default:
             return throw Error();
         }
@@ -201,13 +206,14 @@ class BarChartSample1State extends State<BarChartSample1> {
           sideTitles: SideTitles(
               showTitles: true,
               getTitlesWidget: (v, m) {
-                return Text(" ${listValues[v.toInt()].toString()}", style: Style.defaultStyle.copyWith(fontSize: 13));
+                return Text(listValues[v.toInt()].day.avgtemp_c.toString(),
+                    style: Style.defaultStyle.copyWith(fontSize: 13));
               }),
         ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
-            getTitlesWidget: getTitles,
+            getTitlesWidget: (v, m) => getTitles(v, m, listValues),
             reservedSize: 38,
           ),
         ),
@@ -227,30 +233,21 @@ class BarChartSample1State extends State<BarChartSample1> {
     );
   }
 
-  Widget getTitles(double value, TitleMeta meta) {
+  Widget getTitles(double value, TitleMeta meta, List<ForecastdayModel> listDays) {
     var style = Style.defaultStyle;
     Widget text;
-    switch (value.toInt()) {
+    int i = value.toInt();
+    switch (i) {
       case 0:
-        text = Text('M', style: style);
+        text = Text('Today', style: style);
         break;
       case 1:
-        text = Text('T', style: style);
+        text = Text(DateIntl.stringToDateForecast(listDays[i].date), style: style);
         break;
       case 2:
-        text = Text('W', style: style);
+        text = Text(DateIntl.stringToDateForecast(listDays[i].date), style: style);
         break;
-      case 3:
-        text = Text('T', style: style);
-        break;
-      case 4:
-        text = Text('F', style: style);
-        break;
-      case 5:
-        text = Text('S', style: style);
-        break;
-      case 6:
-        text = Text('S', style: style);
+
         break;
       default:
         text = Text('', style: style);
