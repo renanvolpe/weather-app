@@ -248,7 +248,6 @@ class BarChartSample1State extends State<BarChartSample1> {
         text = Text(DateIntl.stringToDateForecast(listDays[i].date), style: style);
         break;
 
-        break;
       default:
         text = Text('', style: style);
         break;

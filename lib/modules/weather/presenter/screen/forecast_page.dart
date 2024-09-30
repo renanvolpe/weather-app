@@ -42,7 +42,7 @@ class _ForecastPageState extends State<ForecastPage> {
         builder: (context, state) {
           return switch (state) {
             (GetForecast7DaysFailure()) => Text("Error: ${state.message}"),
-            (GetForecast7DaysProgress()) => const CircularProgressIndicator(),
+            (GetForecast7DaysProgress()) => const Center(child: CircularProgressIndicator()),
             (GetForecast7DaysInitial()) => const Text("Tap a city to discover the Weather"),
             (GetForecast7DaysSuccess()) => SingleChildScrollView(
                 child: Column(

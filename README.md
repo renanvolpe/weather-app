@@ -13,9 +13,9 @@
 ## Error Handling:
 - Implement proper error handling for scenarios like failed API calls, empty search results, and invalid city names.
 ## Offline Support:
-- Ensure the app can load previously viewed weather data when offline.
+- Ensure the app can load previously viewed weather data when offline.(check)
 ## UI/UX Feature
-- Get some decoration from any site and apply in app weather
+- Get some decoration from any site and apply in app weather(check)
 
 # Features App
 - Public API: api.weatherapi.com
@@ -25,11 +25,19 @@
     - /forecast.json
 ## Clean Arch
     - Presenter:
-        - 
+        - Screen -> Pages used in app
+        - State (BLoC) -> state management
+        - Widget -> Widget shared in pages
     - Domain
-        -
+        - Usecase -> Usecase for each call in app
+        - Params -> Params used in functions
+        - Abstract Repostirory -> repositories Abstracts
     - Data
-        -
+        - Model -> The Data´s model
+        - Impl Repostirory -> repository Implementation 
+        - Impl Datasource -> Datasource Implementation
+        - Abstract datasource -> datasource Abstracts
+
 
 ## Libs:
 - BLoC
