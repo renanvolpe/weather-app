@@ -5,6 +5,7 @@ import 'package:weather_app/modules/weather/domain/usecase/delete_weather_local_
 import 'package:weather_app/modules/weather/domain/usecase/get_forecast_7days_usecase.dart';
 import 'package:weather_app/modules/weather/presenter/state/bloc/post_weather_local/post_weather_local_bloc.dart';
 
+import '../offline_weather/offline_weather_module.dart';
 import 'data/abstract_datasource/abstract_weather_datasource.dart';
 import 'data/impl_datasource/forecast_datasource_impl.dart';
 import 'data/impl_datasource/weather_datasource_impl.dart';
@@ -32,6 +33,7 @@ class WeatherModule extends Module {
     r.child('/', child: (_) => const WelcomePage());
     r.child('/weather', child: (_) => const WeatherPage());
     r.child('/forecast', child: (_) => ForecastPage(text: r.args.data as String));
+    r.module('/offline', module: OfflineWeatherModule());
     super.routes(r);
   }
 
