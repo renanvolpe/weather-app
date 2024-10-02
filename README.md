@@ -38,6 +38,10 @@
         - Impl Datasource -> Datasource Implementation
         - Abstract datasource -> datasource Abstracts
 
+## Offline
+If u turn off the internet of phone
+It will show a modal to go to offline saved waeather
+
 
 ## Libs:
 - BLoC
@@ -45,3 +49,4 @@
 - Flutter Modular
 - DartZ
 - SQLite
+
