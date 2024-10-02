@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:gap/gap.dart';
 
 import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
@@ -31,11 +32,7 @@ class _WelcomePageState extends State<WelcomePage> {
           print("Is Connected");
         }
         if (state is NetworkNotConnected) {
-          await showDialog(
-              context: context,
-              builder: (_) => const AlertDialog(
-                    title: Text("not internet"),
-                  ));
+          await showDialogNoInternet(context);
         }
       },
       child: Scaffold(
@@ -77,6 +74,38 @@ class _WelcomePageState extends State<WelcomePage> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> showDialogNoInternet(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: Modular.get<NetworkBloc>().state is NetworkConnected,
+        builder: (_) => AlertDialog(
+              title: Text("There is no internet connection", style: Style.darkStyle.copyWith(fontSize: 22)),
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Connect to internet or go to offline module", style: Style.darkStyle.copyWith(fontSize: 14)),
+                  const Gap(20),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () => Modular.to.pushNamed("/offline/"),
+                          child: Text("Offline module", style: Style.darkStyle.copyWith(fontSize: 14))),
+                      const Spacer(), 
+                      TextButton(
+                          onPressed: () {
+                            if (Modular.get<NetworkBloc>().state is NetworkConnected) {
+                              Modular.to.pop();
+                            }
+                          },
+                          child: Text("Try again", style: Style.darkStyle.copyWith(fontSize: 14))),
+                    ],
+                  ),
+                ],
+              ),
+            ));
   }
 }
 
