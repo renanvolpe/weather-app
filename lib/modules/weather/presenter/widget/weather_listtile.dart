@@ -7,6 +7,7 @@ import 'package:weather_app/modules/weather/data/model/weather_model/weather_mod
 
 import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
+import '../../domain/params/get_weather_params.dart';
 import '../state/bloc/get_weather/get_weather_information_bloc.dart';
 
 class WeatherListTile extends StatelessWidget {
@@ -19,7 +20,7 @@ class WeatherListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Modular.get<GetWeatherBloc>().add(GetWeather(text: weather.location.name, id: weather.id)),
+      onTap: () => Modular.get<GetWeatherBloc>().add(GetWeather(GetWeatherParams(text: weather.location.name, id: weather.id))),
       child: Container(
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 15),
           decoration: BoxDecoration(color: AppColor.kBackgroundLight, borderRadius: BorderRadius.circular(15)),

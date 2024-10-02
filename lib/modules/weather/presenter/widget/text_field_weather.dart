@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
+import '../../domain/params/get_weather_params.dart';
 import '../state/bloc/get_weather/get_weather_information_bloc.dart';
 
 class TextFieldWeather extends StatelessWidget {
@@ -25,7 +26,7 @@ class TextFieldWeather extends StatelessWidget {
           hintStyle: Style.greyLightStyle,
           suffixIcon: IconButton(
             onPressed: () {
-              Modular.get<GetWeatherBloc>().add(GetWeather(text: weatherTextController.text));
+              Modular.get<GetWeatherBloc>().add(GetWeather(GetWeatherParams(text: weatherTextController.text)));
               FocusScope.of(context).unfocus();
             },
             icon: const Icon(
