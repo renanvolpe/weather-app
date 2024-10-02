@@ -16,8 +16,8 @@ class GetWeatherBloc extends Bloc<GetWeatherEvent, GetWeatherState> {
   ) : super(GetWeatherInitial()) {
     on<GetWeather>((event, emit) async {
       emit(GetWeatherProgress());
-      GetWeatherParams param = GetWeatherParams(text: event.text, id: event.id);
-      var response = await usecase.call(param);
+      
+      var response = await usecase.call(event.param);
       response.fold(
           (failure) => emit(GetWeatherFailure(failure.message!)), (success) => emit(GetWeatherSuccess(success)));
     });
