@@ -53,11 +53,11 @@ I hope you like the app :)
 
 ## Folder structure: 
 
-- Structure modules:
+- Structure modules: \
  ![Alt Text](https://i.ibb.co/K5y9BqK/structre-folders.png) 
-- Core:
+- Core: \
  ![Alt Text](https://i.ibb.co/QpZwjcr/core-folder.png) 
-- Shared:
+- Shared: \
  ![Alt Text](https://i.ibb.co/RYt24zN/shared-folder.png) 
 
 ## Pages:
