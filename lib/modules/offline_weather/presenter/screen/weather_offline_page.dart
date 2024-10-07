@@ -91,32 +91,18 @@ class _WeathersOfflineSavedState extends State<WeathersOfflineSaved> {
                                   ],
                                 ),
                                 const Spacer(),
-                                Row(
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    IntrinsicHeight(
-                                      child: Row(
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text("${state.listWeather[index].current.temp_c} ºC",
-                                                  style: Style.defaultStyle.copyWith(fontSize: 14)),
-                                              const Spacer(),
-                                              Text(
-                                                "${state.listWeather[index].current.temp_f} ºF",
-                                                style: Style.defaultStyle.copyWith(fontSize: 14),
-                                              )
-                                            ],
-                                          ),
-                                          const Gap(10),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(vertical: 3),
-                                            child: VerticalDivider(width: 5, color: AppColor.kgrey2),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    Text("${state.listWeather[index].current.temp_c} ºC",
+                                        style: Style.defaultStyle.copyWith(fontSize: 14)),
+                                    const Gap(10),
+                                    Text(
+                                      "${state.listWeather[index].current.temp_f} ºF",
+                                      style: Style.defaultStyle.copyWith(fontSize: 14),
+                                    )
                                   ],
-                                )
+                                ),
                               ],
                             )),
                       );

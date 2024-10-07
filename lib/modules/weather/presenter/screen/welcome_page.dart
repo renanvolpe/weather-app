@@ -45,7 +45,22 @@ class _WelcomePageState extends State<WelcomePage> {
                 alignment: Alignment.topCenter,
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: Text("Develop by Renan Volpe", style: Style.defaultStyle.copyWith(fontSize: 14)),
+                  child: Text("Develop by Renan Volpe", style: Style.defaultStyle.copyWith(fontSize: 12)),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                          onTap: () => Modular.to.pushNamed("/offline/"),
+                          child: Text("Offline app", style: Style.defaultStyle.copyWith(fontSize: 14))),
+                      const Icon(Icons.chevron_right)
+                    ],
+                  ),
                 ),
               ),
               Align(
@@ -93,11 +108,17 @@ class _WelcomePageState extends State<WelcomePage> {
                       TextButton(
                           onPressed: () => Modular.to.pushNamed("/offline/"),
                           child: Text("Offline module", style: Style.darkStyle.copyWith(fontSize: 14))),
-                      const Spacer(), 
+                      const Spacer(),
                       TextButton(
                           onPressed: () {
                             if (Modular.get<NetworkBloc>().state is NetworkConnected) {
                               Modular.to.pop();
+                            } else {
+                              var snackBar = SnackBar(
+                                backgroundColor: AppColor.kBlack,
+                                content: Text('Internet not connected yet, try again later', style: Style.whiteStyle),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             }
                           },
                           child: Text("Try again", style: Style.darkStyle.copyWith(fontSize: 14))),

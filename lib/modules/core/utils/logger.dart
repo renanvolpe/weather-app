@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 
-class Logg {
+mixin Logg {
   static void error(String errorMessage) {
     var loggerError = Logger(
       printer: PrettyPrinter(methodCount: 2, stackTraceBeginIndex: 1),
