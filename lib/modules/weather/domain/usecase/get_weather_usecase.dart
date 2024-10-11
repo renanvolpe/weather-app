@@ -15,7 +15,10 @@ class GetWeatherUseCase extends IUseCase<GetWeatherParams, WeatherModel> {
   @override
   Future<Either<Failure, WeatherModel>> call(GetWeatherParams params) async {
     var response = await repository.getWeather(params.text);
+    
     return response.fold((failure) {
+      //TOOD MAKE ERROR TREATMENT
+      
       return Left(failure);
     }, (success) {
       if (params.id != null) {
@@ -25,4 +28,5 @@ class GetWeatherUseCase extends IUseCase<GetWeatherParams, WeatherModel> {
       return Right(success);
     });
   }
+  
 }

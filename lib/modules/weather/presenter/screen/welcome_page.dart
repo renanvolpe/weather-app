@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
+import 'package:weather_app/app_service.dart';
 
 import '../../../core/style/app_color.dart';
 import '../../../core/style/text_style.dart';
 import '../../../shared/internet/bloc/network_bloc.dart';
+import '../../../shared/state_controller.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -71,18 +73,26 @@ class _WelcomePageState extends State<WelcomePage> {
                       style: Style.darkStyle.copyWith(fontSize: 70, fontWeight: FontWeight.bold)),
                 ),
               ),
-              Align(
+              const Align(
                 alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                    onTap: () => Modular.to.pushNamed('./weather'),
-                    child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 35),
-                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 55),
-                        decoration: BoxDecoration(color: AppColor.kgrey2, borderRadius: BorderRadius.circular(60)),
-                        child: Text(
-                          "Let's see the app",
-                          style: Style.defaultLightStyle.copyWith(fontSize: 20),
-                        ))),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 155, horizontal: 55),
+                  child: Text("Choose state Management to continue"),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 75),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Wrap(
+                    children: [
+                      BtnSelectStateManagement(state: "BLoC"),
+                      BtnSelectStateManagement(state: "Riverpod"),
+                      BtnSelectStateManagement(state: "MobX"),
+                      BtnSelectStateManagement(state: "GetX"),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -128,6 +138,33 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
             ));
   }
+}
+
+class BtnSelectStateManagement extends StatelessWidget {
+  const BtnSelectStateManagement({
+    super.key,
+    required this.state,
+  });
+  final String state;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          Modular.get<AppService>().state = StateController.checkState(state);
+
+          Modular.to.pushNamed('./weather');
+        },
+        child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            decoration: BoxDecoration(color: AppColor.kgrey2, borderRadius: BorderRadius.circular(60)),
+            child: Text(
+              state,
+              style: Style.defaultLightStyle.copyWith(fontSize: 20),
+            )));
+  }
+
 }
 
 Widget develop = Align(

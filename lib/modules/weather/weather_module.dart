@@ -26,6 +26,7 @@ import 'presenter/state/bloc/get_forecast_7days/get_forecast7_days_bloc.dart';
 import 'presenter/state/bloc/get_list_weather_local/get_list_weather_information_local_bloc.dart';
 import 'presenter/state/bloc/get_weather/get_weather_information_bloc.dart';
 import 'presenter/state/bloc/get_weather_local/get_weather_information_local_bloc.dart';
+import 'presenter/state/riverpod/get_weather/get_weather_provider.dart';
 
 class WeatherModule extends Module {
   @override
@@ -46,6 +47,8 @@ class WeatherModule extends Module {
     i.addSingleton<IWeatherDatasourceApi>(WeatherDatasourceImpl.new);
     i.addSingleton(GetWeatherUseCase.new);
     i.addSingleton(GetWeatherBloc.new);
+
+    // i.addSingleton(() => getWeatherProvider);
 
     //Weather - Local
     i.addSingleton<IWeatherDatasourceLocal>(WeatherDatasourceLocalImpl.new);
